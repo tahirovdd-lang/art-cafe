@@ -9,23 +9,21 @@
 
 <style>
 :root{
-  /* === Samarkand / Turquoise Dome + Sand === */
-  --sand:#F6EAD6;
-  --sand-2:#EFE1C8;
+  /* ✅ ФОН как 1 фото (Pantone 59-5 C) */
+  --bg:#A7886B;
 
-  --night0:#0F2A2E;
-  --night1:#163C42;
+  /* ✅ Цвет плитки как 2 фото (бирюзово-каменный) */
+  --tile:#395B5F;
+  --tile-2:#2B4447;
+  --tile-3:#4D7478;
 
-  --turq:#2DD4C9;
-  --turq-2:#1FBDB2;
-
-  --gold:#D2B36A;
-
-  --text-dark:#1E1B16;
+  --white:#ffffff;
   --text:#ffffff;
+  --text-dark:#1E1B16;
 
-  --stroke: rgba(0,0,0,.10);
-  --shadow: rgba(0,0,0,.18);
+  --muted: rgba(255,255,255,.78);
+  --stroke: rgba(255,255,255,.18);
+  --shadow: rgba(0,0,0,.22);
 
   --r-lg:24px;
   --r-md:22px;
@@ -33,7 +31,8 @@
   --vh: 1vh;
   --sticky-h: 86px;
 
-  --accent: var(--turq);
+  /* ✅ общий акцент под плитку */
+  --accent: var(--tile);
 }
 
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
@@ -41,7 +40,7 @@ html,body{height:100%;}
 body{
   margin:0;
   font-family:'Montserrat',sans-serif;
-  background:var(--sand);
+  background:var(--bg);
   color:var(--text-dark);
   min-height: calc(var(--vh) * 100);
   overflow-y:auto;
@@ -53,25 +52,13 @@ body{
 }
 .page{max-width:560px;margin:0 auto;}
 
-/* soft sand texture */
-body:before{
-  content:"";
-  position:fixed; inset:0;
-  pointer-events:none;
-  background-image:
-    radial-gradient(circle at 15% 10%, rgba(0,0,0,.030) 0 1px, rgba(0,0,0,0) 2px),
-    radial-gradient(circle at 75% 35%, rgba(0,0,0,.025) 0 1px, rgba(0,0,0,0) 2px),
-    radial-gradient(circle at 40% 80%, rgba(0,0,0,.020) 0 1px, rgba(0,0,0,0) 2px);
-  opacity:.55;
-}
-
 /* header */
 .header{
-  /* ✅ чуть больше шапка */
+  /* ✅ шапка чуть больше */
   padding:18px 12px 30px;
   background:
-    radial-gradient(1200px 260px at 50% -30%, rgba(45,212,201,.28), rgba(45,212,201,0) 60%),
-    linear-gradient(135deg, var(--night0), var(--night1));
+    linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.04)),
+    linear-gradient(180deg, var(--tile), var(--tile-2));
   border-bottom:1px solid rgba(255,255,255,.14);
   box-shadow:0 12px 26px rgba(0,0,0,.24);
   display:flex;align-items:center;justify-content:center;
@@ -79,37 +66,21 @@ body:before{
   color:var(--text);
   overflow:hidden;
 }
-/* subtle pattern */
+
+/* легкая текстура под "плитку" */
 .header:before{
   content:"";
-  position:absolute; inset:-40px;
-  background-image:
-    radial-gradient(circle at 20% 30%, rgba(255,255,255,.10) 0 2px, rgba(255,255,255,0) 3px),
-    radial-gradient(circle at 60% 20%, rgba(255,255,255,.08) 0 2px, rgba(255,255,255,0) 3px),
-    radial-gradient(circle at 80% 55%, rgba(255,255,255,.06) 0 2px, rgba(255,255,255,0) 3px);
+  position:absolute;inset:-40px;
+  background:
+    radial-gradient(circle at 18% 30%, rgba(255,255,255,.10) 0 2px, rgba(255,255,255,0) 3px),
+    radial-gradient(circle at 60% 18%, rgba(255,255,255,.08) 0 2px, rgba(255,255,255,0) 3px),
+    radial-gradient(circle at 82% 56%, rgba(255,255,255,.06) 0 2px, rgba(255,255,255,0) 3px);
   opacity:.45;
-  pointer-events:none;
-}
-/* arched “portal” */
-.header:after{
-  content:"";
-  position:absolute;
-  left:50%;
-  top:10px;
-  width:260px;
-  height:140px;
-  transform:translateX(-50%);
-  border-radius: 160px 160px 26px 26px;
-  border:1px solid rgba(210,179,106,.22);
-  background: linear-gradient(180deg, rgba(45,212,201,.10), rgba(255,255,255,0));
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.05);
-  opacity:.55;
   pointer-events:none;
 }
 
 .header img{
   position:absolute;left:12px;
-  /* ✅ чуть больше лого */
   width:88px;height:88px;object-fit:contain;
   border-radius:18px;
   background:rgba(255,255,255,.10);
@@ -129,14 +100,13 @@ body:before{
   font-size:14px;
   letter-spacing:1.6px;
   line-height:1.15;
-  color: rgba(255,255,255,.92);
+  opacity:.95;
 }
 .brand-phone{
   font-weight:900;
   font-size:12.8px;
   letter-spacing:.3px;
   opacity:.95;
-  color:#fff;
 }
 
 /* приветствие */
@@ -148,7 +118,7 @@ body:before{
   padding:6px 10px;
   border-radius:999px;
   border:1px solid rgba(255,255,255,.18);
-  background:rgba(0,0,0,.12);
+  background:rgba(0,0,0,.10);
   color:#fff;
 }
 
@@ -163,18 +133,19 @@ body:before{
   width:42px;height:42px;border-radius:16px;
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;user-select:none;
-  background:rgba(255,255,255,.92);
-  border:1px solid rgba(255,255,255,.55);
-  box-shadow: inset 0 0 0 2px rgba(255,255,255,.45), 0 10px 20px rgba(0,0,0,.16);
+  /* ✅ кнопки как плитка */
+  background: linear-gradient(180deg, var(--tile-3), var(--tile-2));
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.10), 0 10px 20px rgba(0,0,0,.18);
   transition:.15s;
 }
 .act-btn:active{transform:scale(.97);}
 .burger{width:20px;height:14px;position:relative;}
-.burger span{position:absolute;left:0;right:0;height:2.8px;border-radius:10px;background:#1b1b1b;opacity:.9;}
+.burger span{position:absolute;left:0;right:0;height:2.8px;border-radius:10px;background:#ffffff;opacity:.92;}
 .burger span:nth-child(1){top:0;}
 .burger span:nth-child(2){top:5.4px;}
 .burger span:nth-child(3){bottom:0;}
-.act-ico{font-size:18px;line-height:1;color:#1b1b1b;}
+.act-ico{font-size:18px;line-height:1;color:#fff;}
 
 /* rows */
 .langs{
@@ -196,20 +167,21 @@ body:before{
   text-align:center;
   cursor:pointer;
   transition:.15s;
-  border:1px solid rgba(30,27,22,.14);
-  background:rgba(255,255,255,.88);
-  color:var(--text-dark);
-  box-shadow: 0 10px 22px rgba(0,0,0,.10);
+  border:1px solid rgba(255,255,255,.22);
+  /* ✅ все кнопки цветом как 2 фото */
+  background: linear-gradient(180deg, var(--tile-3), var(--tile-2));
+  color:#ffffff;
+  box-shadow: 0 10px 22px rgba(0,0,0,.18);
   flex:0 0 auto;
 }
 .btn:active{transform:scale(.98);}
 
-/* active = бирюзовая */
+/* active */
 .btn.active{
-  background: linear-gradient(180deg, var(--turq), var(--turq-2));
-  color: #063133;
-  border:1px solid rgba(6,49,51,.18);
-  box-shadow: 0 14px 26px rgba(0,0,0,.14);
+  background: linear-gradient(180deg, var(--tile), var(--tile-2));
+  color:#ffffff;
+  border:1px solid rgba(255,255,255,.30);
+  box-shadow: 0 14px 26px rgba(0,0,0,.22);
 }
 
 /* category buttons */
@@ -235,9 +207,9 @@ body:before{
 .products{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;padding:12px;}
 .card{
   border-radius:24px;padding:12px;text-align:center;
-  background:rgba(255,255,255,.92);
-  border:1px solid rgba(30,27,22,.12);
-  box-shadow: 0 12px 26px rgba(0,0,0,.12);
+  background:rgba(255,255,255,.94);
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow: 0 12px 26px rgba(0,0,0,.18);
   transition:.15s;
   color:#1d1d1d;
 }
@@ -245,29 +217,29 @@ body:before{
 .img img{max-width:150px;max-height:150px;object-fit:cover;transform:scale(1.06);cursor:pointer;border-radius:18px;}
 .item-name{margin-top:2px;padding:0 6px;font-weight:900;line-height:1.15;min-height:42px;display:flex;align-items:center;justify-content:center;word-break:break-word;}
 .item-meta{margin-top:6px;font-weight:800;font-size:12px;opacity:.82;line-height:1.15;min-height:16px;}
-.price{font-weight:900;color:#0B5C60;margin-top:8px;}
+.price{font-weight:900;color:var(--tile);margin-top:8px;}
 .price small{font-weight:800;opacity:.75;margin-left:4px;}
 .counter{display:flex;justify-content:center;gap:10px;margin-top:8px;align-items:center;}
 .counter button{
-  width:32px;height:32px;border-radius:50%;cursor:pointer;border:1px solid rgba(6,49,51,.22);
-  background: linear-gradient(180deg, var(--turq), var(--turq-2));
-  color:#063133;font-size:18px;font-weight:900;box-shadow:0 12px 24px rgba(0,0,0,.14);
+  width:32px;height:32px;border-radius:50%;cursor:pointer;border:1px solid rgba(255,255,255,.28);
+  background: linear-gradient(180deg, var(--tile-3), var(--tile-2));
+  color:#fff;font-size:18px;font-weight:900;box-shadow:0 12px 24px rgba(0,0,0,.18);
   transition:.15s;
 }
 .counter button:active{transform:scale(.96);}
 
 /* cart */
 .cart{
-  background:rgba(255,255,255,.92);
+  background:rgba(255,255,255,.94);
   color:#1d1d1d;
-  margin:12px;padding:16px;border-radius:24px;border:1px solid rgba(30,27,22,.12);
-  box-shadow: 0 12px 26px rgba(0,0,0,.12);
+  margin:12px;padding:16px;border-radius:24px;border:1px solid rgba(255,255,255,.18);
+  box-shadow: 0 12px 26px rgba(0,0,0,.18);
 }
 .input{
   margin:8px auto;display:block;padding:14px;width:85%;
-  border-radius:22px;font-size:15px;border:1px solid rgba(30,27,22,.14);
+  border-radius:22px;font-size:15px;border:1px solid rgba(0,0,0,.10);
   background:rgba(255,255,255,.94);
-  box-shadow: 0 10px 22px rgba(0,0,0,.10);
+  box-shadow: 0 10px 22px rgba(0,0,0,.18);
   outline:none;transition:.15s;
   color:#2b2b2b;
 }
@@ -278,12 +250,12 @@ textarea.input{height:90px;}
   margin-top:14px;
   border-radius:24px;
   cursor:pointer;
-  color:#063133;
+  color:#ffffff;
   font-size:17px;
   font-weight:900;
-  border:1px solid rgba(6,49,51,.18);
-  background: linear-gradient(180deg, var(--turq), var(--turq-2));
-  box-shadow: 0 14px 26px rgba(0,0,0,.14);
+  border:1px solid rgba(255,255,255,.22);
+  background: linear-gradient(180deg, var(--tile), var(--tile-2));
+  box-shadow: 0 14px 26px rgba(0,0,0,.22);
   position:relative;
   z-index:2;
   scroll-margin-bottom: calc(var(--sticky-h) + 24px);
@@ -297,7 +269,7 @@ textarea.input{height:90px;}
 .popup{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.3s;}
 .popup.show{opacity:1;pointer-events:auto;}
 .popup-box{
-  background:white;padding:26px;border-radius:24px;text-align:center;font-weight:800;border:1px solid rgba(0,0,0,.08);
+  background:white;padding:26px;border-radius:24px;text-align:center;font-weight:800;border:1px solid rgba(255,255,255,.22);
   box-shadow: 0 14px 26px rgba(0,0,0,.22);
   color:#1d1d1d;
 }
@@ -318,7 +290,7 @@ textarea.input{height:90px;}
   border-radius:22px;
   overflow:hidden;
   background:#fff;
-  border:1px solid rgba(0,0,0,.08);
+  border:1px solid rgba(255,255,255,.22);
   box-shadow:0 18px 44px rgba(0,0,0,.28);
 }
 .img-modal-top{
@@ -367,7 +339,7 @@ textarea.input{height:90px;}
 }
 .img-desc-meta{
   font-weight:900;
-  color:#0B5C60;
+  color:var(--tile);
   margin-bottom:10px;
   white-space:pre-line;
 }
@@ -391,7 +363,7 @@ textarea.input{height:90px;}
 .sticky-checkout{
   position:fixed;left:0;right:0;bottom:0;
   padding:10px 12px;
-  background: rgba(15,42,46,.72);
+  background: rgba(57,91,95,.78); /* плитка */
   backdrop-filter: blur(10px);
   z-index:999;
   border-top:1px solid rgba(255,255,255,.14);
@@ -401,9 +373,9 @@ textarea.input{height:90px;}
 }
 .sticky-inner{
   max-width:520px;margin:0 auto;border-radius:18px;padding:10px 12px;
-  background:rgba(255,255,255,.92);
-  border:1px solid rgba(0,0,0,.08);
-  box-shadow: 0 14px 26px rgba(0,0,0,.14);
+  background:rgba(255,255,255,.94);
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow: 0 14px 26px rgba(0,0,0,.22);
   display:flex;align-items:center;justify-content:space-between;gap:12px;
   width:100%;
   color:#1d1d1d;
@@ -411,10 +383,10 @@ textarea.input{height:90px;}
 .sticky-sum{font-weight:900;line-height:1.1;}
 .sticky-sum small{display:block;font-weight:800;opacity:.75;margin-top:2px;}
 .sticky-btn{
-  padding:12px 14px;border-radius:16px;border:1px solid rgba(6,49,51,.18);
-  background: linear-gradient(180deg, var(--turq), var(--turq-2));
-  color:#063133;font-weight:900;cursor:pointer;
-  box-shadow: 0 14px 26px rgba(0,0,0,.14);
+  padding:12px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.22);
+  background: linear-gradient(180deg, var(--tile), var(--tile-2));
+  color:#ffffff;font-weight:900;cursor:pointer;
+  box-shadow: 0 14px 26px rgba(0,0,0,.22);
 }
 
 /* bottom sheets */
@@ -424,7 +396,7 @@ textarea.input{height:90px;}
   position:fixed;left:0; right:0;bottom:-100%;
   background:rgba(255,255,255,.94);
   color:#1d1d1d;
-  border-top-left-radius:22px;border-top-right-radius:22px;border:1px solid rgba(0,0,0,.08);
+  border-top-left-radius:22px;border-top-right-radius:22px;border:1px solid rgba(255,255,255,.22);
   box-shadow:0 18px 40px rgba(0,0,0,.22);
   transition:.22s;z-index:1010;padding:10px 12px 14px;
   max-height: 86vh;overflow:auto;-webkit-overflow-scrolling:touch;
@@ -446,8 +418,7 @@ textarea.input{height:90px;}
 .menu-left{display:flex;align-items:center;gap:10px;min-width:0;}
 .menu-ic{
   width:30px;height:30px;border-radius:12px;display:flex;align-items:center;justify-content:center;
-  background: rgba(45,212,201,.12);
-  border:1px solid rgba(6,49,51,.10);
+  background: rgba(57,91,95,.12);
   flex:0 0 auto;
 }
 .menu-txt{display:flex;flex-direction:column;min-width:0;}
@@ -470,7 +441,7 @@ textarea.input{height:90px;}
 .about-desc .muted{opacity:.85;font-weight:800;}
 
 /* search */
-.search-title{display:none;width:100%;padding:10px 14px 0;font-weight:900;color:var(--text-dark);}
+.search-title{display:none;width:100%;padding:10px 14px 0;font-weight:900;color:#fff;}
 .search-title.show{display:block;}
 .search-wrap{display:none;position:relative;padding:10px 12px 6px;gap:10px;align-items:center;}
 .search-wrap.show{display:flex;}
@@ -501,7 +472,6 @@ textarea.input{height:90px;}
   .header img{width:80px;height:80px;left:10px;}
   .brand-title{font-size:26px;}
   .brand-title2{font-size:12px;letter-spacing:1.3px;}
-  .brand-phone{font-size:12px;}
   .btn{min-width:108px;padding:12px 16px;}
   .cat-btn{min-width:126px;padding:12px 14px;font-size:13px;}
   .langs .btn{min-width:86px;padding:10px 10px;font-size:13px;}
@@ -519,7 +489,7 @@ textarea.input{height:90px;}
     <div class="brand-title">Art Cafe</div>
     <div class="brand-title2" id="brandSub">SAMARKAND</div>
 
-    <!-- ✅ номер под SAMARKAND -->
+    <!-- ✅ номер под Samarkand -->
     <div class="brand-phone" id="brandPhone">+998 (91) 534-40-44</div>
 
     <div class="welcome" id="welcomeLine" style="display:none;"></div>
@@ -530,7 +500,7 @@ textarea.input{height:90px;}
       <div class="burger"><span></span><span></span><span></span></div>
     </div>
 
-    <!-- ✅ геопозиция под бургером -->
+    <!-- ✅ гео под бургером -->
     <div class="act-btn" onclick="openMapsHeader(event)" title="Отзывы / Геолокация">
       <span class="act-ico">📍</span>
     </div>
@@ -554,7 +524,7 @@ textarea.input{height:90px;}
 
   <div class="menu-list">
 
-    <!-- ✅ Связаться с менеджером -->
+    <!-- ✅ менеджер -->
     <div class="menu-item" onclick="openManager(event)" role="button">
       <div class="menu-left">
         <div class="menu-ic">💬</div>
@@ -566,7 +536,7 @@ textarea.input{height:90px;}
       <div class="menu-right">›</div>
     </div>
 
-    <!-- ✅ Юр лицам -->
+    <!-- ✅ юр лицам -->
     <div class="menu-item" onclick="toggleLegal()" role="button">
       <div class="menu-left">
         <div class="menu-ic">🏢</div>
@@ -583,14 +553,14 @@ textarea.input{height:90px;}
         <div style="font-weight:900; margin-bottom:6px;" id="legalLabel">🏢 Юр лицам</div>
 
         <div style="font-weight:900; margin-bottom:6px;">📧 Email</div>
-        <a href="mailto:artcafesamarkand@gmail.com" onclick="openEmail(event)" style="text-decoration:none; font-weight:900; color:#0B5C60;">
+        <a href="mailto:artcafesamarkand@gmail.com" onclick="openEmail(event)" style="text-decoration:none; font-weight:900; color:var(--tile);">
           artcafesamarkand@gmail.com
         </a>
 
         <div style="height:12px;"></div>
 
         <div style="font-weight:900; margin-bottom:6px;">📞 Телефон</div>
-        <a href="tel:+998937460022" onclick="callLegalPhone(event)" style="text-decoration:none; font-weight:900; color:#0B5C60;">
+        <a href="tel:+998937460022" onclick="callLegalPhone(event)" style="text-decoration:none; font-weight:900; color:var(--tile);">
           +998 93 746-00-22
         </a>
       </div>
@@ -624,7 +594,7 @@ textarea.input{height:90px;}
       <div class="menu-right">›</div>
     </a>
 
-    <!-- ✅ Кнопку О кафе переместили в самый низ -->
+    <!-- ✅ О кафе внизу -->
     <div class="menu-item" onclick="toggleAbout()" role="button">
       <div class="menu-left">
         <div class="menu-ic">ℹ️</div>
@@ -647,7 +617,7 @@ textarea.input{height:90px;}
         <div style="height:12px;"></div>
 
         <div style="font-weight:900; margin-bottom:6px;" id="aboutPhoneLabel">📞 Телефон</div>
-        <a href="tel:+998915344044" onclick="callPhone(event)" style="text-decoration:none; font-weight:900; color:#0B5C60;" id="aboutPhoneNum">
+        <a href="tel:+998915344044" onclick="callPhone(event)" style="text-decoration:none; font-weight:900; color:var(--tile);" id="aboutPhoneNum">
           +998 (91) 534-40-44
         </a>
 
@@ -677,11 +647,9 @@ textarea.input{height:90px;}
   <button class="btn" id="langEN" onclick="setLang('en',this)"><span class="lang-flag">🇬🇧</span>EN</button>
 </div>
 
-<!-- категории и товары -->
 <div class="categories" id="cats"></div>
 <div class="products" id="products"></div>
 
-<!-- корзина -->
 <div class="cart" id="cartBox">
   <b id="cartTitle"></b>: <span id="total">0</span> <span id="sumWord">сум</span>
 
@@ -719,7 +687,6 @@ textarea.input{height:90px;}
   </div>
 </div>
 
-<!-- sticky cart -->
 <div class="sticky-checkout" id="stickyBar">
   <div class="sticky-inner">
     <div class="sticky-sum">
@@ -749,64 +716,13 @@ function syncStickyHeight(){
 window.addEventListener('resize', ()=>setTimeout(syncStickyHeight, 50), {passive:true});
 window.addEventListener('orientationchange', ()=>setTimeout(syncStickyHeight, 250), {passive:true});
 
-/* DOM refs */
-const menuBackdrop = document.getElementById('menuBackdrop');
-const menuSheet    = document.getElementById('menuSheet');
-const menuTitle    = document.getElementById('menuTitle');
-
-const mAboutTitle  = document.getElementById('mAboutTitle');
-const mAboutSub    = document.getElementById('mAboutSub');
-const aboutAddrLabel  = document.getElementById('aboutAddrLabel');
-const aboutPhoneLabel = document.getElementById('aboutPhoneLabel');
-const aboutHoursLabel = document.getElementById('aboutHoursLabel');
-const aboutPhoneNum   = document.getElementById('aboutPhoneNum');
-const aboutHoursText  = document.getElementById('aboutHoursText');
-const mapsBtn         = document.getElementById('mapsBtn');
-
-const mCallTitle   = document.getElementById('mCallTitle');
-const mCallSub     = document.getElementById('mCallSub');
-const mInstaTitle  = document.getElementById('mInstaTitle');
-const mInstaSub    = document.getElementById('mInstaSub');
-
-const searchTitle  = document.getElementById('searchTitle');
-const searchWrap   = document.getElementById('searchWrap');
-const searchInput  = document.getElementById('searchInput');
-
-const cats         = document.getElementById('cats');
-const products     = document.getElementById('products');
-
-const cartTitle    = document.getElementById('cartTitle');
-const totalLabel   = document.getElementById('totalLabel');
-const orderBtn     = document.getElementById('orderBtn');
-const comment      = document.getElementById('comment');
-
-const sumCurrency  = document.getElementById('sumCurrency');
-const sumWord      = document.getElementById('sumWord');
-const sumWord2     = document.getElementById('sumWord2');
-
-const stickyCartBtn= document.getElementById('stickyCartBtn');
-
-const total        = document.getElementById('total');
-const grandTotal   = document.getElementById('grandTotal');
-const stickyTotal  = document.getElementById('stickyTotal');
-
-const popup        = document.getElementById('popup');
-const popupText    = document.getElementById('popupText');
-
-const imgModal     = document.getElementById('imgModal');
-const imgModalTitle= document.getElementById('imgModalTitle');
-const imgModalImg  = document.getElementById('imgModalImg');
-const imgDescTitle = document.getElementById('imgDescTitle');
-const imgDescMeta  = document.getElementById('imgDescMeta');
-const imgDescText  = document.getElementById('imgDescText');
-
-/* links/settings */
+/* ссылки/настройки */
 const INSTA_URL = "https://www.instagram.com/artcafesamarkand/";
 const MAPS_URL  = "https://yandex.ru/maps/-/CPqibK2o";
 const PHONE_RAW = "+998915344044";
 const PHONE_HUMAN = "+998 (91) 534-40-44";
 
-/* ✅ юр лицам + менеджер */
+/* ✅ Юр лицам + менеджер */
 const LEGAL_EMAIL = "artcafesamarkand@gmail.com";
 const LEGAL_PHONE_RAW = "+998937460022";
 const LEGAL_PHONE_HUMAN = "+998 93 746-00-22";
@@ -955,7 +871,7 @@ const MAIN_CATS = [
 let category = 'salads';
 let cart = {};
 
-/* MENU (ваш прайс) */
+/* MENU (полностью по вашему прайсу) */
 const MENU = {
   salads: [
     mkFood('salad_svezhiy', 'Свежий', '', 30000, 'salads'),
@@ -1209,12 +1125,6 @@ function callPhone(e){
   const url="tel:"+PHONE_RAW;
   try{Telegram.WebApp.openLink(url);}catch(_){window.location.href=url;}
 }
-
-function openMapsHeader(e){
-  try{e.preventDefault();e.stopPropagation();}catch(_){}
-  try{Telegram.WebApp.openLink(MAPS_URL);}catch(_){window.open(MAPS_URL,'_blank');}
-}
-
 function openInstagram(e){
   try{e.preventDefault();e.stopPropagation();}catch(_){}
   closeTopMenu();
@@ -1225,13 +1135,16 @@ function openMaps(e){
   closeTopMenu();
   try{Telegram.WebApp.openLink(MAPS_URL);}catch(_){window.open(MAPS_URL,'_blank');}
 }
-
+function openMapsHeader(e){
+  try{e.preventDefault();e.stopPropagation();}catch(_){}
+  try{Telegram.WebApp.openLink(MAPS_URL);}catch(_){window.open(MAPS_URL,'_blank');}
+}
 function toggleAbout(){
   const w=document.getElementById('aboutWrap');
   w.style.display=(w.style.display==='none'||!w.style.display)?'block':'none';
 }
 
-/* ✅ Юр лицам */
+/* Юр лицам */
 function toggleLegal(){
   const w=document.getElementById('legalWrap');
   w.style.display=(w.style.display==='none'||!w.style.display)?'block':'none';
@@ -1247,17 +1160,15 @@ function callLegalPhone(e){
   try{Telegram.WebApp.openLink(url);}catch(_){window.location.href=url;}
 }
 
-/* ✅ менеджер: переход на ID */
+/* менеджер */
 function openManager(e){
   try{e.preventDefault();e.stopPropagation();}catch(_){}
   closeTopMenu();
-
   const tgUrl = `tg://user?id=${MANAGER_ID}`;
   try{
     Telegram.WebApp.openTelegramLink?.(tgUrl);
     return;
   }catch(_){}
-
   try{
     Telegram.WebApp.openLink(tgUrl);
   }catch(_){
@@ -1311,13 +1222,11 @@ function matchesQuery(it,q){
   ].filter(Boolean).join(' ').toLowerCase();
   return all.includes(q);
 }
-
 function iterAllItems(fn){
   for(const catKey in MENU){
     (MENU[catKey]||[]).forEach(it=>fn(it,catKey));
   }
 }
-
 function searchProducts(){
   const q=(searchInput.value||'').trim().toLowerCase();
   products.innerHTML='';
@@ -1333,7 +1242,7 @@ function searchProducts(){
   });
 
   if(found===0){
-    products.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:18px;font-weight:900;opacity:.9;background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.08);border-radius:18px;">
+    products.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:18px;font-weight:900;opacity:.95;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);border-radius:18px;color:#fff;">
       ${escapeHtml(UI[lang].nothing)}
     </div>`;
   }
@@ -1462,7 +1371,6 @@ function sendOrder(){
   }
 
   showToast("✅");
-
   const totalSum=calcItemsSum();
 
   const payload={
@@ -1503,8 +1411,8 @@ function setLang(l,btn){
 
 /* init theme */
 try{
-  Telegram.WebApp.setHeaderColor?.('#0F2A2E');
-  Telegram.WebApp.setBackgroundColor?.('#F6EAD6');
+  Telegram.WebApp.setHeaderColor?.('#395B5F');
+  Telegram.WebApp.setBackgroundColor?.('#A7886B');
 }catch(_){}
 
 /* init */
