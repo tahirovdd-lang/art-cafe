@@ -54,8 +54,8 @@ body{
 
 /* header */
 .header{
-  /* ✅ шапка чуть больше */
-  padding:18px 12px 30px;
+  /* ✅ ЧУТЬ УВЕЛИЧИЛ шапку профиля */
+  padding:22px 12px 36px;
   background:
     linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.04)),
     linear-gradient(180deg, var(--tile), var(--tile-2));
@@ -129,8 +129,10 @@ body{
   gap:10px;
   z-index:90;
 }
+
+/* ✅ УМЕНЬШИЛ кнопки бургер/гео/поиск */
 .act-btn{
-  width:42px;height:42px;border-radius:16px;
+  width:36px;height:36px;border-radius:14px;
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;user-select:none;
   /* ✅ кнопки как плитка */
@@ -140,12 +142,16 @@ body{
   transition:.15s;
 }
 .act-btn:active{transform:scale(.97);}
-.burger{width:20px;height:14px;position:relative;}
-.burger span{position:absolute;left:0;right:0;height:2.8px;border-radius:10px;background:#ffffff;opacity:.92;}
+
+/* ✅ подогнал бургер под новый размер */
+.burger{width:18px;height:12px;position:relative;}
+.burger span{position:absolute;left:0;right:0;height:2.4px;border-radius:10px;background:#ffffff;opacity:.92;}
 .burger span:nth-child(1){top:0;}
-.burger span:nth-child(2){top:5.4px;}
+.burger span:nth-child(2){top:4.6px;}
 .burger span:nth-child(3){bottom:0;}
-.act-ico{font-size:18px;line-height:1;color:#fff;}
+
+/* ✅ чуть меньше иконки */
+.act-ico{font-size:16px;line-height:1;color:#fff;}
 
 /* rows */
 .langs{
@@ -304,30 +310,31 @@ textarea.input{height:90px;}
   width:38px;height:38px;border:none;border-radius:14px;background:transparent;cursor:pointer;
   font-size:22px;line-height:1;color:#666;
 }
+
+/* ✅ ИНФОРМАЦИЯ ТЕПЕРЬ ВНИЗУ ПОД ФОТО */
 .img-modal-content{
   display:flex;
+  flex-direction:column;
   gap:0;
   align-items:stretch;
 }
 .img-modal-left{
-  flex: 1.15;
   background:#fff;
   display:flex;
   align-items:center;
   justify-content:center;
   padding:14px;
-  border-right:1px solid rgba(0,0,0,.08);
+  border-bottom:1px solid rgba(0,0,0,.08);
 }
 .img-modal-img{
   width:100%;
-  max-height:70vh;
+  max-height:66vh;
   object-fit:contain;
   background:#fff;
   display:block;
   border-radius:18px;
 }
 .img-modal-right{
-  flex: 1;
   padding:14px 14px 16px;
   color:#1d1d1d;
 }
@@ -357,6 +364,51 @@ textarea.input{height:90px;}
   background:rgba(0,0,0,.03);
   font-weight:900;
   font-size:12px;
+}
+
+/* ✅ splash image on app open */
+.splash{
+  position:fixed; inset:0;
+  background:rgba(0,0,0,.62);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none;
+  transition:.18s;
+  z-index:3000;
+  padding:18px;
+}
+.splash.show{opacity:1;pointer-events:auto;}
+.splash-box{
+  width:min(760px, 100%);
+  border-radius:22px;
+  overflow:hidden;
+  background:#fff;
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:0 18px 44px rgba(0,0,0,.28);
+}
+.splash-top{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:10px;
+  padding:12px 12px;
+  background:rgba(0,0,0,.04);
+}
+.splash-title{font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.splash-close{
+  width:38px;height:38px;border:none;border-radius:14px;background:transparent;cursor:pointer;
+  font-size:22px;line-height:1;color:#666;
+}
+.splash-content{
+  padding:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#fff;
+}
+.splash-img{
+  width:100%;
+  max-height:76vh;
+  object-fit:contain;
+  border-radius:18px;
+  display:block;
 }
 
 /* sticky */
@@ -455,16 +507,11 @@ textarea.input{height:90px;}
   cursor:pointer;color:#333;font-weight:900;
 }
 
-@media (max-width:520px){
-  .img-modal-content{flex-direction:column;}
-  .img-modal-left{border-right:none;border-bottom:1px solid rgba(0,0,0,.08);}
-  .img-modal-img{max-height:52vh;}
-}
 @media (max-width:420px){
   .brand-title{font-size:28px;}
   .brand-title2{font-size:13px;}
   .brand-wrap{transform: translateX(10px);}
-  .header{padding:16px 10px 28px;}
+  .header{padding:20px 10px 34px;}
   .input{width:92%;}
   .products{gap:14px;}
 }
@@ -476,6 +523,11 @@ textarea.input{height:90px;}
   .cat-btn{min-width:126px;padding:12px 14px;font-size:13px;}
   .langs .btn{min-width:86px;padding:10px 10px;font-size:13px;}
   .welcome{font-size:12px;padding:6px 9px;}
+
+  /* ✅ на маленьких экранах ещё чуть меньше хедер-кнопки */
+  .act-btn{width:34px;height:34px;border-radius:13px;}
+  .act-ico{font-size:15px;}
+  .burger{width:17px;height:11px;}
 }
 </style>
 </head>
@@ -687,6 +739,19 @@ textarea.input{height:90px;}
   </div>
 </div>
 
+<!-- ✅ splash on open -->
+<div class="splash" id="splash" onclick="closeSplash(event)">
+  <div class="splash-box" onclick="event.stopPropagation()">
+    <div class="splash-top">
+      <div class="splash-title">Art Cafe</div>
+      <button class="splash-close" onclick="closeSplash(event)">×</button>
+    </div>
+    <div class="splash-content">
+      <img class="splash-img" id="splashImg" src="" alt="Art Cafe">
+    </div>
+  </div>
+</div>
+
 <div class="sticky-checkout" id="stickyBar">
   <div class="sticky-inner">
     <div class="sticky-sum">
@@ -717,7 +782,7 @@ window.addEventListener('resize', ()=>setTimeout(syncStickyHeight, 50), {passive
 window.addEventListener('orientationchange', ()=>setTimeout(syncStickyHeight, 250), {passive:true});
 
 /* ссылки/настройки */
-const INSTA_URL = "https://www.instagram.com/artcafesamarkand/";
+const INSTA_URL = "https://www.instagram.com/artcafesamarkand/"; // ✅ @artcafesamarkand
 const MAPS_URL  = "https://yandex.ru/maps/-/CPqibK2o";
 const PHONE_RAW = "+998915344044";
 const PHONE_HUMAN = "+998 (91) 534-40-44";
@@ -726,7 +791,13 @@ const PHONE_HUMAN = "+998 (91) 534-40-44";
 const LEGAL_EMAIL = "artcafesamarkand@gmail.com";
 const LEGAL_PHONE_RAW = "+998937460022";
 const LEGAL_PHONE_HUMAN = "+998 93 746-00-22";
+
+/* ✅ админ/менеджер: сообщения в Telegram админу */
 const MANAGER_ID = 6013591658;
+
+/* ✅ Фото при открытии приложения (JPG)
+   Имя файла: images/OPEN_SCREEN.jpg   ← добавь этот файл в папку images */
+const OPEN_SCREEN_IMG = "images/OPEN_SCREEN.jpg";
 
 /* Telegram user */
 const tgUser = Telegram.WebApp.initDataUnsafe?.user || {};
@@ -833,7 +904,8 @@ function mkFood(id, name, meta, price, catKey){
     id,
     p: Number(price)||0,
     meta: metaText,
-    img: `images/${id}.jpg`,
+    img: `images/${id}.jpg`, // ✅ фото: jpg
+    /* ✅ названия у всех блюд (показываются в карточке) */
     n: {ru:name, uz:name, en:name},
     desc: {
       ru: `Категория: ${catName}\n${UI.ru.metaPrefix}: ${metaText || '—'}\n\nДобавьте в корзину и нажмите “${UI[lang].order}”.`,
@@ -1160,20 +1232,13 @@ function callLegalPhone(e){
   try{Telegram.WebApp.openLink(url);}catch(_){window.location.href=url;}
 }
 
-/* менеджер */
+/* ✅ менеджер: открывает чат с админом (ID 6013591658) */
 function openManager(e){
   try{e.preventDefault();e.stopPropagation();}catch(_){}
   closeTopMenu();
   const tgUrl = `tg://user?id=${MANAGER_ID}`;
-  try{
-    Telegram.WebApp.openTelegramLink?.(tgUrl);
-    return;
-  }catch(_){}
-  try{
-    Telegram.WebApp.openLink(tgUrl);
-  }catch(_){
-    window.location.href = tgUrl;
-  }
+  try{ Telegram.WebApp.openTelegramLink?.(tgUrl); return; }catch(_){}
+  try{ Telegram.WebApp.openLink(tgUrl); }catch(_){ window.location.href = tgUrl; }
 }
 
 /* categories */
@@ -1278,7 +1343,7 @@ function renderProducts(){
   });
 }
 
-/* image modal */
+/* ✅ image modal (фото открывается, информация внизу фото) */
 function openImage(e,id){
   try{e.preventDefault();e.stopPropagation();}catch(_){}
   const it=ITEM_INDEX[id];
@@ -1307,6 +1372,35 @@ function closeImgModal(e){
   try{e.preventDefault();e.stopPropagation();}catch(_){}
   imgModal.classList.remove('show');
   imgModalImg.src='';
+}
+
+/* ✅ splash: показать фото при открытии (1 раз в день) */
+function todayKey(){
+  const d=new Date();
+  const dd=String(d.getDate()).padStart(2,'0');
+  const mm=String(d.getMonth()+1).padStart(2,'0');
+  return `${d.getFullYear()}${mm}${dd}`;
+}
+function showSplash(){
+  const key = `artcafe_splash_seen_${todayKey()}`;
+  if(localStorage.getItem(key)==='1') return;
+
+  const imgEl = document.getElementById('splashImg');
+  imgEl.src = OPEN_SCREEN_IMG; // ✅ JPG
+  imgEl.onerror = function(){
+    this.onerror=null;
+    // если фото не добавили — просто не показываем
+    document.getElementById('splash')?.classList.remove('show');
+  };
+
+  document.getElementById('splash')?.classList.add('show');
+  localStorage.setItem(key,'1');
+}
+function closeSplash(e){
+  try{e.preventDefault();e.stopPropagation();}catch(_){}
+  document.getElementById('splash')?.classList.remove('show');
+  const imgEl=document.getElementById('splashImg');
+  if(imgEl) imgEl.src='';
 }
 
 /* cart */
@@ -1427,6 +1521,9 @@ applyUI();
 updateTotal();
 setTimeout(syncStickyHeight, 50);
 closeSearch();
+
+/* ✅ показать фото при открытии приложения */
+setTimeout(showSplash, 350);
 </script>
 </body>
 </html>
