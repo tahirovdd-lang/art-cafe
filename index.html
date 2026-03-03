@@ -54,7 +54,6 @@ body{
 
 /* header */
 .header{
-  /* ✅ ЧУТЬ УВЕЛИЧИЛ шапку профиля */
   padding:22px 12px 36px;
   background:
     linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.04)),
@@ -130,12 +129,11 @@ body{
   z-index:90;
 }
 
-/* ✅ УМЕНЬШИЛ кнопки бургер/гео/поиск */
+/* ✅ чуть уменьшаем кнопки бургер/гео/поиск */
 .act-btn{
-  width:36px;height:36px;border-radius:14px;
+  width:34px;height:34px;border-radius:13px;
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;user-select:none;
-  /* ✅ кнопки как плитка */
   background: linear-gradient(180deg, var(--tile-3), var(--tile-2));
   border:1px solid rgba(255,255,255,.22);
   box-shadow: inset 0 0 0 2px rgba(255,255,255,.10), 0 10px 20px rgba(0,0,0,.18);
@@ -144,14 +142,14 @@ body{
 .act-btn:active{transform:scale(.97);}
 
 /* ✅ подогнал бургер под новый размер */
-.burger{width:18px;height:12px;position:relative;}
-.burger span{position:absolute;left:0;right:0;height:2.4px;border-radius:10px;background:#ffffff;opacity:.92;}
+.burger{width:17px;height:11px;position:relative;}
+.burger span{position:absolute;left:0;right:0;height:2.3px;border-radius:10px;background:#ffffff;opacity:.92;}
 .burger span:nth-child(1){top:0;}
-.burger span:nth-child(2){top:4.6px;}
+.burger span:nth-child(2){top:4.2px;}
 .burger span:nth-child(3){bottom:0;}
 
 /* ✅ чуть меньше иконки */
-.act-ico{font-size:16px;line-height:1;color:#fff;}
+.act-ico{font-size:15px;line-height:1;color:#fff;}
 
 /* rows */
 .langs{
@@ -174,7 +172,6 @@ body{
   cursor:pointer;
   transition:.15s;
   border:1px solid rgba(255,255,255,.22);
-  /* ✅ все кнопки цветом как 2 фото */
   background: linear-gradient(180deg, var(--tile-3), var(--tile-2));
   color:#ffffff;
   box-shadow: 0 10px 22px rgba(0,0,0,.18);
@@ -195,7 +192,6 @@ body{
   padding:12px 16px;
   min-width:132px;
   font-size:14px;
-  /* ✅ квадраты с закруглением */
   border-radius:18px;
 }
 
@@ -208,8 +204,19 @@ body{
 }
 .lang-flag{margin-right:8px; font-size:16px; line-height:1;}
 
-/* categories + products */
-.categories{display:flex;gap:12px;padding:14px;overflow-x:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;}
+/* ✅ 2 кнопки (Кухня/Бар) по центру */
+.categories{
+  display:flex;
+  gap:12px;
+  padding:14px;
+  justify-content:center;          /* ✅ центр */
+  overflow-x:auto;
+  scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-x:contain;
+}
+
+/* products */
 .products{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;padding:12px;}
 .card{
   border-radius:24px;padding:12px;text-align:center;
@@ -271,6 +278,23 @@ textarea.input{height:90px;}
   padding-bottom: calc(16px + var(--sticky-h));
 }
 
+/* ✅ выбор доставки/самовывоза + оплаты */
+.row-buttons{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+.row-buttons .btn{
+  min-width:150px;
+}
+.row-title{
+  font-weight:900;
+  margin-top:12px;
+  text-align:center;
+}
+
 /* popup */
 .popup{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.3s;}
 .popup.show{opacity:1;pointer-events:auto;}
@@ -310,8 +334,6 @@ textarea.input{height:90px;}
   width:38px;height:38px;border:none;border-radius:14px;background:transparent;cursor:pointer;
   font-size:22px;line-height:1;color:#666;
 }
-
-/* ✅ ИНФОРМАЦИЯ ТЕПЕРЬ ВНИЗУ ПОД ФОТО */
 .img-modal-content{
   display:flex;
   flex-direction:column;
@@ -366,7 +388,7 @@ textarea.input{height:90px;}
   font-size:12px;
 }
 
-/* ✅ splash image on app open */
+/* ✅ splash */
 .splash{
   position:fixed; inset:0;
   background:rgba(0,0,0,.62);
@@ -411,7 +433,7 @@ textarea.input{height:90px;}
   display:block;
 }
 
-/* ✅ подкатегории в виде квадратиков (в нижнем окне) */
+/* ✅ subcats bottom sheet */
 .subcats-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -443,7 +465,7 @@ textarea.input{height:90px;}
 .sticky-checkout{
   position:fixed;left:0;right:0;bottom:0;
   padding:10px 12px;
-  background: rgba(57,91,95,.78); /* плитка */
+  background: rgba(57,91,95,.78);
   backdrop-filter: blur(10px);
   z-index:999;
   border-top:1px solid rgba(255,255,255,.14);
@@ -535,6 +557,17 @@ textarea.input{height:90px;}
   cursor:pointer;color:#333;font-weight:900;
 }
 
+/* ✅ мини-блок для деталей оплаты */
+.pay-details{
+  margin-top:10px;
+  padding:12px;
+  border-radius:16px;
+  border:1px solid rgba(0,0,0,.08);
+  background:rgba(0,0,0,.03);
+  font-weight:900;
+  white-space:pre-line;
+}
+
 @media (max-width:420px){
   .brand-title{font-size:28px;}
   .brand-title2{font-size:13px;}
@@ -551,11 +584,6 @@ textarea.input{height:90px;}
   .cat-btn{min-width:126px;padding:12px 14px;font-size:13px;}
   .langs .btn{min-width:86px;padding:10px 10px;font-size:13px;}
   .welcome{font-size:12px;padding:6px 9px;}
-
-  /* ✅ на маленьких экранах ещё чуть меньше хедер-кнопки */
-  .act-btn{width:34px;height:34px;border-radius:13px;}
-  .act-ico{font-size:15px;}
-  .burger{width:17px;height:11px;}
 }
 </style>
 </head>
@@ -569,7 +597,6 @@ textarea.input{height:90px;}
     <div class="brand-title">Art Cafe</div>
     <div class="brand-title2" id="brandSub">SAMARKAND</div>
 
-    <!-- ✅ номер под Samarkand -->
     <div class="brand-phone" id="brandPhone">+998 (91) 534-40-44</div>
 
     <div class="welcome" id="welcomeLine" style="display:none;"></div>
@@ -580,7 +607,6 @@ textarea.input{height:90px;}
       <div class="burger"><span></span><span></span><span></span></div>
     </div>
 
-    <!-- ✅ гео под бургером -->
     <div class="act-btn" onclick="openMapsHeader(event)" title="Отзывы / Геолокация">
       <span class="act-ico">📍</span>
     </div>
@@ -611,6 +637,18 @@ textarea.input{height:90px;}
         <div class="menu-txt">
           <div class="menu-name" id="mManagerTitle">Связаться с менеджером</div>
           <div class="menu-sub" id="mManagerSub">Telegram</div>
+        </div>
+      </div>
+      <div class="menu-right">›</div>
+    </div>
+
+    <!-- ✅ позвать официанта -->
+    <div class="menu-item" onclick="openWaiter(event)" role="button">
+      <div class="menu-left">
+        <div class="menu-ic">🛎️</div>
+        <div class="menu-txt">
+          <div class="menu-name" id="mWaiterTitle">Позвать официанта</div>
+          <div class="menu-sub" id="mWaiterSub">Выбор стола • В ресторане</div>
         </div>
       </div>
       <div class="menu-right">›</div>
@@ -713,7 +751,7 @@ textarea.input{height:90px;}
   </div>
 </div>
 
-<!-- ✅ bottom sheet: подкатегории (всплывает снизу) -->
+<!-- ✅ sheet: подкатегории -->
 <div class="sheet-backdrop" id="subBackdrop" onclick="closeSubcats()"></div>
 <div class="sheet" id="subSheet">
   <div class="sheet-handle"></div>
@@ -721,12 +759,62 @@ textarea.input{height:90px;}
     <b id="subTitle">Категории</b>
     <button class="sheet-close" onclick="closeSubcats()">×</button>
   </div>
+  <div style="padding:2px 4px 6px; font-weight:900; opacity:.85;" id="subHint">Выберите подкатегорию</div>
+  <div class="subcats-grid" id="subGrid"></div>
+</div>
 
-  <div style="padding:2px 4px 6px; font-weight:900; opacity:.85;" id="subHint">
-    Выберите подкатегорию
+<!-- ✅ sheet: оплата Click (QR) -->
+<div class="sheet-backdrop" id="payBackdrop" onclick="closePaySheet()"></div>
+<div class="sheet" id="paySheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head">
+    <b id="payTitle">Оплата Click</b>
+    <button class="sheet-close" onclick="closePaySheet()">×</button>
+  </div>
+  <div style="padding:6px 4px 10px;">
+    <div style="font-weight:900; margin-bottom:10px;" id="payQrHint">Сканируйте QR-код для оплаты</div>
+    <div style="border:1px solid rgba(0,0,0,.08); border-radius:18px; overflow:hidden; background:#fff; padding:10px; display:flex; align-items:center; justify-content:center;">
+      <img id="clickQrImg" src="" alt="Click QR" style="width:100%; max-height:56vh; object-fit:contain; border-radius:14px;">
+    </div>
+    <div class="pay-details" id="clickPayDetails"></div>
+  </div>
+</div>
+
+<!-- ✅ sheet: позвать официанта -->
+<div class="sheet-backdrop" id="waiterBackdrop" onclick="closeWaiter()"></div>
+<div class="sheet" id="waiterSheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head">
+    <b id="waiterTitle">Позвать официанта</b>
+    <button class="sheet-close" onclick="closeWaiter()">×</button>
   </div>
 
-  <div class="subcats-grid" id="subGrid"></div>
+  <div style="padding:6px 4px 10px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 10px; border-radius:16px; border:1px solid rgba(0,0,0,.08); background:rgba(0,0,0,.03);">
+      <div style="font-weight:900;" id="waiterInRestLabel">Гость в ресторане</div>
+      <label style="display:flex;align-items:center;gap:10px;font-weight:900;">
+        <input type="checkbox" id="inRestToggle" checked style="transform:scale(1.2);">
+      </label>
+    </div>
+
+    <div style="height:12px;"></div>
+
+    <div style="font-weight:900; margin-bottom:8px;" id="tableLabel">Выберите стол</div>
+    <select id="tableSelect" class="input" style="width:100%; margin:0; padding:14px; border-radius:18px;">
+      <option value="">—</option>
+    </select>
+
+    <div style="height:12px;"></div>
+
+    <button class="btn" style="width:100%; min-width:auto;" onclick="sendWaiterCall()" id="waiterBtn">
+      🛎️ Позвать
+    </button>
+
+    <div style="height:6px;"></div>
+    <div style="font-weight:800; opacity:.8; line-height:1.25;" id="waiterNote">
+      Мы отправим запрос официанту вместе с номером стола.
+    </div>
+  </div>
 </div>
 
 <!-- search -->
@@ -736,14 +824,15 @@ textarea.input{height:90px;}
   <div class="search-clear" onclick="clearSearch()" title="Очистить">✖</div>
 </div>
 
-<!-- языки RU / UZ / EN -->
+<!-- ✅ языки RU / UZ / EN / TR -->
 <div class="langs">
   <button class="btn" id="langRU" onclick="setLang('ru',this)"><span class="lang-flag">🇷🇺</span>RU</button>
   <button class="btn" id="langUZ" onclick="setLang('uz',this)"><span class="lang-flag">🇺🇿</span>UZ</button>
   <button class="btn" id="langEN" onclick="setLang('en',this)"><span class="lang-flag">🇬🇧</span>EN</button>
+  <button class="btn" id="langTR" onclick="setLang('tr',this)"><span class="lang-flag">🇹🇷</span>TR</button>
 </div>
 
-<!-- ✅ теперь тут 2 категории: Кухня / Бар -->
+<!-- ✅ 2 категории: Кухня / Бар -->
 <div class="categories" id="cats"></div>
 
 <div class="products" id="products"></div>
@@ -755,7 +844,31 @@ textarea.input{height:90px;}
     <span id="totalLabel">Итого</span>: <span id="grandTotal">0</span> <span id="sumWord2">сум</span>
   </div>
 
+  <!-- ✅ Доставка / Самовывоз -->
+  <div class="row-title" id="deliveryTitle">Способ получения</div>
+  <div class="row-buttons">
+    <button class="btn" id="btnDelivery" onclick="setFulfillment('delivery', this)">🚚 Доставка</button>
+    <button class="btn" id="btnPickup" onclick="setFulfillment('pickup', this)">🏃 Самовывоз</button>
+  </div>
+
+  <!-- ✅ Телефон (обязателен всегда) -->
+  <input id="phoneInput" class="input" placeholder="📞 Номер телефона">
+
+  <!-- ✅ Адрес (только для доставки) -->
+  <input id="addrInput" class="input" placeholder="📍 Адрес доставки">
+
+  <!-- ✅ Комментарий -->
   <textarea id="comment" class="input"></textarea>
+
+  <!-- ✅ Оплата -->
+  <div class="row-title" id="payMethodTitle">Способ оплаты</div>
+  <div class="row-buttons">
+    <button class="btn" id="btnCash" onclick="setPayment('cash', this)">💵 Наличные</button>
+    <button class="btn" id="btnClick" onclick="setPayment('click', this)">🟢 Click</button>
+    <button class="btn" id="btnOnline" onclick="setPayment('online', this)">💳 Online</button>
+  </div>
+
+  <div id="onlineDetails" class="pay-details" style="display:none;"></div>
 
   <button class="order-btn" id="orderBtn" onclick="sendOrder()"></button>
   <div style="height: 12px;"></div>
@@ -828,7 +941,7 @@ window.addEventListener('resize', ()=>setTimeout(syncStickyHeight, 50), {passive
 window.addEventListener('orientationchange', ()=>setTimeout(syncStickyHeight, 250), {passive:true});
 
 /* ссылки/настройки */
-const INSTA_URL = "https://www.instagram.com/artcafesamarkand/"; // ✅ @artcafesamarkand
+const INSTA_URL = "https://www.instagram.com/artcafesamarkand/";
 const MAPS_URL  = "https://yandex.ru/maps/-/CPqibK2o";
 const PHONE_RAW = "+998915344044";
 const PHONE_HUMAN = "+998 (91) 534-40-44";
@@ -838,12 +951,21 @@ const LEGAL_EMAIL = "artcafesamarkand@gmail.com";
 const LEGAL_PHONE_RAW = "+998937460022";
 const LEGAL_PHONE_HUMAN = "+998 93 746-00-22";
 
-/* ✅ админ/менеджер: сообщения в Telegram админу */
-const MANAGER_ID = 6013591658;
+/* ✅ менеджер */
+const MANAGER_ID = 6013591658;          // ID менеджера
+const MANAGER_USERNAME = "";            // если есть username, можно вписать: "username"
 
-/* ✅ Фото при открытии приложения (JPG)
-   Имя файла: images/OPEN_SCREEN.jpg   ← добавь этот файл в папку images */
+/* ✅ Фото при открытии приложения (JPG) */
 const OPEN_SCREEN_IMG = "images/OPEN_SCREEN.jpg";
+
+/* ✅ QR Click (JPG) — загрузите файл с именем: images/CLICK_QR.jpg */
+const CLICK_QR_IMG = "images/CLICK_QR.jpg";
+
+/* ✅ online payment data */
+const ONLINE_PAY = {
+  receiver: "Tahirov Daler",
+  card: "9860100126359502"
+};
 
 /* Telegram user */
 const tgUser = Telegram.WebApp.initDataUnsafe?.user || {};
@@ -867,7 +989,7 @@ const UI = {
     cart:'🛒 Корзина',
     total:'Итого',
     order:'Оформить заказ',
-    comment:'✍️ Комментарий (например: адрес, время, примечание)',
+    comment:'✍️ Комментарий (например: этаж/ориентир/время)',
     sum:'сум',
     empty:'Корзина пустая',
     welcome:'👋 Добро пожаловать',
@@ -879,12 +1001,32 @@ const UI = {
     managerSub:'Telegram',
     legalTitle:'Юр лицам',
     legalSub:`${LEGAL_EMAIL} • ${LEGAL_PHONE_HUMAN}`,
-
-    /* ✅ новые */
+    waiterTitle:'Позвать официанта',
+    waiterSub:'Выбор стола • В ресторане',
     kitchen:'Кухня',
     bar:'Бар',
     subcatsTitle:'Категории',
-    subcatsHint:'Выберите подкатегорию'
+    subcatsHint:'Выберите подкатегорию',
+    deliveryTitle:'Способ получения',
+    delivery:'🚚 Доставка',
+    pickup:'🏃 Самовывоз',
+    phonePH:'📞 Номер телефона',
+    addrPH:'📍 Адрес доставки',
+    payTitle:'Способ оплаты',
+    cash:'💵 Наличные',
+    click:'🟢 Click',
+    online:'💳 Online',
+    payClickTitle:'Оплата Click',
+    payQrHint:'Сканируйте QR-код для оплаты',
+    onlineDetails:`Получатель: ${ONLINE_PAY.receiver}\nНомер карты: ${ONLINE_PAY.card}`,
+    reqPhone:'Введите номер телефона',
+    reqAddr:'Введите адрес доставки',
+    waiterSheetTitle:'Позвать официанта',
+    inRest:'Гость в ресторане',
+    table:'Выберите стол',
+    call:'🛎️ Позвать',
+    waiterNote:'Мы отправим запрос официанту вместе с номером стола.',
+    reqTable:'Выберите стол'
   },
   uz:{
     brandSub:'SAMARKAND',
@@ -900,7 +1042,7 @@ const UI = {
     cart:'🛒 Savat',
     total:'Jami',
     order:'Buyurtma berish',
-    comment:"✍️ Izoh (masalan: manzil, vaqt, izoh)",
+    comment:"✍️ Izoh (masalan: mo‘ljal/vaqt)",
     sum:"so‘m",
     empty:"Savat bo‘sh",
     welcome:'👋 Xush kelibsiz',
@@ -912,12 +1054,32 @@ const UI = {
     managerSub:'Telegram',
     legalTitle:'Yuridik shaxslar',
     legalSub:`${LEGAL_EMAIL} • ${LEGAL_PHONE_HUMAN}`,
-
-    /* ✅ новые */
+    waiterTitle:'Ofitsiant chaqirish',
+    waiterSub:'Stol tanlash • Restoranda',
     kitchen:'Oshxona',
     bar:'Bar',
     subcatsTitle:'Kategoriyalar',
-    subcatsHint:'Pastki kategoriyani tanlang'
+    subcatsHint:'Pastki kategoriyani tanlang',
+    deliveryTitle:'Olish usuli',
+    delivery:'🚚 Yetkazib berish',
+    pickup:'🏃 Olib ketish',
+    phonePH:'📞 Telefon raqami',
+    addrPH:'📍 Yetkazib berish manzili',
+    payTitle:'To‘lov usuli',
+    cash:'💵 Naqd',
+    click:'🟢 Click',
+    online:'💳 Online',
+    payClickTitle:'Click to‘lovi',
+    payQrHint:'To‘lov uchun QR-ni skaner qiling',
+    onlineDetails:`Qabul qiluvchi: ${ONLINE_PAY.receiver}\nKarta raqami: ${ONLINE_PAY.card}`,
+    reqPhone:'Telefon raqamini kiriting',
+    reqAddr:'Manzilni kiriting',
+    waiterSheetTitle:'Ofitsiant chaqirish',
+    inRest:'Mehmon restoranda',
+    table:'Stolni tanlang',
+    call:'🛎️ Chaqirish',
+    waiterNote:'Biz so‘rovni stol raqami bilan yuboramiz.',
+    reqTable:'Stolni tanlang'
   },
   en:{
     brandSub:'SAMARKAND',
@@ -933,7 +1095,7 @@ const UI = {
     cart:'🛒 Cart',
     total:'Total',
     order:'Place order',
-    comment:'✍️ Comment (e.g., address/time/note)',
+    comment:'✍️ Comment (e.g., landmark/time)',
     sum:'sum',
     empty:'Cart is empty',
     welcome:'👋 Welcome',
@@ -945,12 +1107,85 @@ const UI = {
     managerSub:'Telegram',
     legalTitle:'For companies',
     legalSub:`${LEGAL_EMAIL} • ${LEGAL_PHONE_HUMAN}`,
-
-    /* ✅ новые */
+    waiterTitle:'Call waiter',
+    waiterSub:'Choose table • In restaurant',
     kitchen:'Kitchen',
     bar:'Bar',
     subcatsTitle:'Categories',
-    subcatsHint:'Choose a subcategory'
+    subcatsHint:'Choose a subcategory',
+    deliveryTitle:'Fulfillment',
+    delivery:'🚚 Delivery',
+    pickup:'🏃 Pickup',
+    phonePH:'📞 Phone number',
+    addrPH:'📍 Delivery address',
+    payTitle:'Payment method',
+    cash:'💵 Cash',
+    click:'🟢 Click',
+    online:'💳 Online',
+    payClickTitle:'Click payment',
+    payQrHint:'Scan QR code to pay',
+    onlineDetails:`Receiver: ${ONLINE_PAY.receiver}\nCard number: ${ONLINE_PAY.card}`,
+    reqPhone:'Enter phone number',
+    reqAddr:'Enter delivery address',
+    waiterSheetTitle:'Call waiter',
+    inRest:'Guest in restaurant',
+    table:'Choose table',
+    call:'🛎️ Call',
+    waiterNote:'We will send the request with the table number.',
+    reqTable:'Choose table'
+  },
+  tr:{
+    brandSub:'SAMARKAND',
+    menu:'Menü',
+    aboutTitle:'Kafe hakkında',
+    aboutSub:'İletişim, saatler, adres',
+    aboutAddr:'📍 Konum / Yorumlar',
+    aboutPhone:'📞 Telefon',
+    aboutHours:'🕒 Çalışma saatleri',
+    callTitle:'Ara',
+    instaSub:'Instagram’ı aç',
+    searchResults:'Arama sonuçları',
+    cart:'🛒 Sepet',
+    total:'Toplam',
+    order:'Siparişi onayla',
+    comment:'✍️ Not (ör: adres/saat)',
+    sum:'sum',
+    empty:'Sepet boş',
+    welcome:'👋 Hoş geldiniz',
+    metaPrefix:'Porsiyon / Hacim',
+    price:'Fiyat',
+    nothing:'Sonuç bulunamadı',
+    mapsBtn:'📍 Konum ve yorumlar (Yandex Maps)',
+    managerTitle:'Yönetici ile iletişim',
+    managerSub:'Telegram',
+    legalTitle:'Şirketler için',
+    legalSub:`${LEGAL_EMAIL} • ${LEGAL_PHONE_HUMAN}`,
+    waiterTitle:'Garson çağır',
+    waiterSub:'Masa seçimi • Restoranda',
+    kitchen:'Mutfak',
+    bar:'Bar',
+    subcatsTitle:'Kategoriler',
+    subcatsHint:'Alt kategori seçin',
+    deliveryTitle:'Teslimat şekli',
+    delivery:'🚚 Teslimat',
+    pickup:'🏃 Gel-al',
+    phonePH:'📞 Telefon numarası',
+    addrPH:'📍 Teslimat adresi',
+    payTitle:'Ödeme yöntemi',
+    cash:'💵 Nakit',
+    click:'🟢 Click',
+    online:'💳 Online',
+    payClickTitle:'Click ödeme',
+    payQrHint:'Ödeme için QR kodu okutun',
+    onlineDetails:`Alıcı: ${ONLINE_PAY.receiver}\nKart No: ${ONLINE_PAY.card}`,
+    reqPhone:'Telefon numarası girin',
+    reqAddr:'Teslimat adresi girin',
+    waiterSheetTitle:'Garson çağır',
+    inRest:'Misafir restoranda',
+    table:'Masa seçin',
+    call:'🛎️ Çağır',
+    waiterNote:'İstek masa numarasıyla gönderilecek.',
+    reqTable:'Masa seçin'
   }
 };
 
@@ -960,34 +1195,38 @@ let lang='ru';
 function escapeHtml(s){return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
 function formatSum(x){const n = Number(x) || 0; return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ');}
 
-/* Категории блюд */
+/* Категории */
 const CATEGORY_LABELS = {
-  salads:   {ru:'Салаты', uz:'Salatlar', en:'Salads'},
-  snacks:   {ru:'Закуски', uz:'Gazaklar', en:'Appetizers'},
-  soups:    {ru:'Супы', uz:'Sho‘rvalar', en:'Soups'},
-  hot:      {ru:'Горячие блюда', uz:'Issiq taomlar', en:'Hot dishes'},
-  bread:    {ru:'Хлеб', uz:'Non', en:'Bread'},
-  sauces:   {ru:'Соусы', uz:'Souslar', en:'Sauces'},
-  sides:    {ru:'Гарниры', uz:'Garnirlar', en:'Sides'},
-  desserts: {ru:'Десерты', uz:'Desertlar', en:'Desserts'},
-  coffee:   {ru:'Кофе', uz:'Qahva', en:'Coffee'},
-  tea:      {ru:'Чай', uz:'Choy', en:'Tea'},
-  fresh:    {ru:'Фреш', uz:'Fresh', en:'Fresh juice'},
-  lemonades:{ru:'Лимонады', uz:'Limonadlar', en:'Lemonades'},
-  milkshake:{ru:'Милкшейк', uz:'Milkshake', en:'Milkshakes'},
-  drinks:   {ru:'Напитки', uz:'Ichimliklar', en:'Drinks'},
-  mineral:  {ru:'Минеральная вода', uz:'Mineral suv', en:'Mineral water'}
+  salads:   {ru:'Салаты', uz:'Salatlar', en:'Salads', tr:'Salatalar'},
+  snacks:   {ru:'Закуски', uz:'Gazaklar', en:'Appetizers', tr:'Atıştırmalıklar'},
+  soups:    {ru:'Супы', uz:'Sho‘rvalar', en:'Soups', tr:'Çorbalar'},
+  hot:      {ru:'Горячие блюда', uz:'Issiq taomlar', en:'Hot dishes', tr:'Sıcak yemekler'},
+  bread:    {ru:'Хлеб', uz:'Non', en:'Bread', tr:'Ekmek'},
+  sauces:   {ru:'Соусы', uz:'Souslar', en:'Sauces', tr:'Soslar'},
+  sides:    {ru:'Гарниры', uz:'Garnirlar', en:'Sides', tr:'Garnitür'},
+  desserts: {ru:'Десерты', uz:'Desertlar', en:'Desserts', tr:'Tatlılar'},
+  coffee:   {ru:'Кофе', uz:'Qahva', en:'Coffee', tr:'Kahve'},
+  tea:      {ru:'Чай', uz:'Choy', en:'Tea', tr:'Çay'},
+  fresh:    {ru:'Фреш', uz:'Fresh', en:'Fresh juice', tr:'Taze meyve suyu'},
+  lemonades:{ru:'Лимонады', uz:'Limonadlar', en:'Lemonades', tr:'Limonatalar'},
+  milkshake:{ru:'Милкшейк', uz:'Milkshake', en:'Milkshakes', tr:'Milkshake'},
+  drinks:   {ru:'Напитки', uz:'Ichimliklar', en:'Drinks', tr:'İçecekler'},
+  mineral:  {ru:'Минеральная вода', uz:'Mineral suv', en:'Mineral water', tr:'Maden suyu'}
 };
 
-/* ✅ 2 главные категории: Кухня / Бар → распределение подкатегорий */
+/* ✅ 2 главные категории: Кухня / Бар */
 const GROUPS = {
   kitchen: ['salads','snacks','soups','hot','bread','sauces','sides','desserts'],
   bar:     ['coffee','tea','fresh','lemonades','milkshake','drinks','mineral']
 };
 
-let mainGroup = 'kitchen';      // ✅ активная: кухня/бар
-let category  = GROUPS.kitchen[0]; // ✅ активная подкатегория
+let mainGroup = 'kitchen';
+let category  = GROUPS.kitchen[0];
 let cart = {};
+
+/* ✅ Доставка/Самовывоз + Оплата */
+let fulfillment = 'delivery';   // delivery | pickup
+let paymentMethod = 'cash';     // cash | click | online
 
 /* item builder */
 function mkFood(id, name, meta, price, catKey){
@@ -997,17 +1236,18 @@ function mkFood(id, name, meta, price, catKey){
     id,
     p: Number(price)||0,
     meta: metaText,
-    img: `images/${id}.jpg`, // ✅ фото: jpg
-    n: {ru:name, uz:name, en:name},
+    img: `images/${id}.jpg`,
+    n: {ru:name, uz:name, en:name, tr:name},
     desc: {
       ru: `Категория: ${catName}\n${UI.ru.metaPrefix}: ${metaText || '—'}\n\nДобавьте в корзину и нажмите “${UI[lang].order}”.`,
       uz: `Kategoriya: ${catName}\n${UI.uz.metaPrefix}: ${metaText || '—'}\n\nSavatga qo‘shing va “${UI[lang].order}” tugmasini bosing.`,
-      en: `Category: ${catName}\n${UI.en.metaPrefix}: ${metaText || '—'}\n\nAdd to cart and press “${UI[lang].order}”.`
+      en: `Category: ${catName}\n${UI.en.metaPrefix}: ${metaText || '—'}\n\nAdd to cart and press “${UI[lang].order}”.`,
+      tr: `Kategori: ${catName}\n${UI.tr.metaPrefix}: ${metaText || '—'}\n\nSepete ekleyin ve “${UI[lang].order}” butonuna basın.`
     }
   };
 }
 
-/* MENU (полностью по вашему прайсу) */
+/* MENU */
 const MENU = {
   salads: [
     mkFood('salad_svezhiy', 'Свежий', '', 30000, 'salads'),
@@ -1037,15 +1277,12 @@ const MENU = {
     mkFood('hot_plov_05', 'Плов', '0.5 порция', 50000, 'hot'),
     mkFood('hot_plov_07', 'Плов', '0.7 порция', 70000, 'hot'),
     mkFood('hot_plov_1',  'Плов', '1 порция', 100000, 'hot'),
-
     mkFood('hot_manti_govyadina_1', 'Манты с говядиной 1 шт', '', 10000, 'hot'),
     mkFood('hot_manti_tykva', 'Манты с тыквой (сезонные)', '', 10000, 'hot'),
     mkFood('hot_manti_zelen', 'Манты с зеленью (сезонные)', '', 10000, 'hot'),
-
     mkFood('hot_samsa_govyadina', 'Самса с говядиной', '', 12000, 'hot'),
     mkFood('hot_samsa_tykva', 'Самса с тыквой (сезонные)', '', 12000, 'hot'),
     mkFood('hot_samsa_zelen', 'Самса с зеленью (сезонные)', '', 12000, 'hot'),
-
     mkFood('hot_zharkoe_kurica', 'Жаркое с курицей', '', 80000, 'hot'),
     mkFood('hot_zhizbiz_05', 'Жиз-биз из говядины', '0.5 порция', 250000, 'hot'),
     mkFood('hot_zhizbiz_1',  'Жиз-биз из говядины', '1 порция', 500000, 'hot'),
@@ -1112,25 +1349,18 @@ const MENU = {
   lemonades: [
     mkFood('lemonade_tarkhun_04', 'Тархун', '0.4 L', 30000, 'lemonades'),
     mkFood('lemonade_tarkhun_1', 'Тархун', '1 L', 60000, 'lemonades'),
-
     mkFood('lemonade_apple_joy_04', 'Яблочное наслаждение', '0.4 L', 50000, 'lemonades'),
     mkFood('lemonade_apple_joy_1', 'Яблочное наслаждение', '1 L', 100000, 'lemonades'),
-
     mkFood('lemonade_turkish_04', 'Турецкий', '0.4 L', 30000, 'lemonades'),
     mkFood('lemonade_turkish_1', 'Турецкий', '1 L', 60000, 'lemonades'),
-
     mkFood('lemonade_exotic_04', 'Экзотический', '0.4 L', 30000, 'lemonades'),
     mkFood('lemonade_exotic_1', 'Экзотический', '1 L', 60000, 'lemonades'),
-
     mkFood('lemonade_mojito_04', 'Мохито', '0.4 L', 30000, 'lemonades'),
     mkFood('lemonade_mojito_1', 'Мохито', '1 L', 60000, 'lemonades'),
-
     mkFood('lemonade_strawberry_mojito_04', 'Клубничный мохито', '0.4 L', 35000, 'lemonades'),
     mkFood('lemonade_strawberry_mojito_1', 'Клубничный мохито', '1 L', 65000, 'lemonades'),
-
     mkFood('lemonade_homemade_berry_04', 'Домашний ягодный', '0.4 L', 30000, 'lemonades'),
     mkFood('lemonade_homemade_berry_1', 'Домашний ягодный', '1 L', 60000, 'lemonades'),
-
     mkFood('lemonade_homemade_citrus_04', 'Домашний цитрусовый', '0.4 L', 30000, 'lemonades'),
     mkFood('lemonade_homemade_citrus_1', 'Домашний цитрусовый', '1 L', 60000, 'lemonades')
   ],
@@ -1208,6 +1438,21 @@ function applyUI(){
   mInstaTitle.innerText = "@artcafesamarkand";
   mInstaSub.innerText = UI[lang].instaSub;
 
+  const mMgrT = document.getElementById('mManagerTitle');
+  const mMgrS = document.getElementById('mManagerSub');
+  if(mMgrT) mMgrT.innerText = UI[lang].managerTitle;
+  if(mMgrS) mMgrS.innerText = UI[lang].managerSub;
+
+  const mLegT = document.getElementById('mLegalTitle');
+  const mLegS = document.getElementById('mLegalSub');
+  if(mLegT) mLegT.innerText = UI[lang].legalTitle;
+  if(mLegS) mLegS.innerText = UI[lang].legalSub;
+
+  const mWTitle = document.getElementById('mWaiterTitle');
+  const mWSub   = document.getElementById('mWaiterSub');
+  if(mWTitle) mWTitle.innerText = UI[lang].waiterTitle;
+  if(mWSub)   mWSub.innerText   = UI[lang].waiterSub;
+
   searchTitle.innerText = UI[lang].searchResults;
 
   cartTitle.innerText = UI[lang].cart;
@@ -1226,32 +1471,49 @@ function applyUI(){
   aboutHoursText.innerText = "09:00–18:00";
   mapsBtn.innerText = UI[lang].mapsBtn;
 
-  const mMgrT = document.getElementById('mManagerTitle');
-  const mMgrS = document.getElementById('mManagerSub');
-  if(mMgrT) mMgrT.innerText = UI[lang].managerTitle;
-  if(mMgrS) mMgrS.innerText = UI[lang].managerSub;
-
-  const mLegT = document.getElementById('mLegalTitle');
-  const mLegS = document.getElementById('mLegalSub');
-  if(mLegT) mLegT.innerText = UI[lang].legalTitle;
-  if(mLegS) mLegS.innerText = UI[lang].legalSub;
-
   subTitle.innerText = UI[lang].subcatsTitle;
   subHint.innerText  = UI[lang].subcatsHint;
+
+  deliveryTitle.innerText = UI[lang].deliveryTitle;
+  btnDelivery.innerText = UI[lang].delivery;
+  btnPickup.innerText   = UI[lang].pickup;
+
+  phoneInput.placeholder = UI[lang].phonePH;
+  addrInput.placeholder  = UI[lang].addrPH;
+
+  payMethodTitle.innerText = UI[lang].payTitle;
+  btnCash.innerText  = UI[lang].cash;
+  btnClick.innerText = UI[lang].click;
+  btnOnline.innerText= UI[lang].online;
+
+  payTitle.innerText = UI[lang].payClickTitle;
+  payQrHint.innerText= UI[lang].payQrHint;
+
+  onlineDetails.innerText = UI[lang].onlineDetails;
+
+  waiterTitle.innerText = UI[lang].waiterSheetTitle;
+  waiterInRestLabel.innerText = UI[lang].inRest;
+  tableLabel.innerText = UI[lang].table;
+  waiterBtn.innerText = UI[lang].call;
+  waiterNote.innerText = UI[lang].waiterNote;
 
   const d = document.getElementById('aboutDescText');
   if(d){
     d.innerHTML = (lang==='ru')
-      ? `Art Cafe — <b>Samarkand</b>.<br><br><b>Как оформить заказ:</b><br>1) Выберите категорию<br>2) Выберите подкатегорию<br>3) Добавьте позиции в корзину<br>4) Нажмите “${UI[lang].order}”<br><br><span class="muted">*Цены указаны в сумах.</span>`
+      ? `Art Cafe — <b>Samarkand</b>.<br><br><b>Как оформить заказ:</b><br>1) Выберите “Кухня” или “Бар”<br>2) Выберите подкатегорию<br>3) Добавьте позиции в корзину<br>4) Выберите доставку/самовывоз и оплату<br>5) Нажмите “${UI[lang].order}”<br><br><span class="muted">*Цены указаны в сумах.</span>`
       : (lang==='uz')
-      ? `Art Cafe — <b>Samarkand</b>.<br><br><b>Buyurtma berish:</b><br>1) Kategoriyani tanlang<br>2) Pastki kategoriyani tanlang<br>3) Savatga qo‘shing<br>4) “${UI[lang].order}” tugmasini bosing<br><br><span class="muted">*Narxlar so‘mda.</span>`
-      : `Art Cafe — <b>Samarkand</b>.<br><br><b>How to order:</b><br>1) Choose category<br>2) Choose subcategory<br>3) Add items to cart<br>4) Press “${UI[lang].order}”<br><br><span class="muted">*Prices are in UZS.</span>`;
+      ? `Art Cafe — <b>Samarkand</b>.<br><br><b>Buyurtma berish:</b><br>1) “Oshxona” yoki “Bar” tanlang<br>2) Pastki kategoriyani tanlang<br>3) Savatga qo‘shing<br>4) Yetkazib berish/olib ketish va to‘lovni tanlang<br>5) “${UI[lang].order}” tugmasini bosing<br><br><span class="muted">*Narxlar so‘mda.</span>`
+      : (lang==='tr')
+      ? `Art Cafe — <b>Samarkand</b>.<br><br><b>Sipariş:</b><br>1) “Mutfak” veya “Bar” seçin<br>2) Alt kategori seçin<br>3) Sepete ekleyin<br>4) Teslimat/gel-al ve ödeme seçin<br>5) “${UI[lang].order}” butonuna basın<br><br><span class="muted">*Fiyatlar UZS.</span>`
+      : `Art Cafe — <b>Samarkand</b>.<br><br><b>How to order:</b><br>1) Choose “Kitchen” or “Bar”<br>2) Choose subcategory<br>3) Add items to cart<br>4) Choose delivery/pickup & payment<br>5) Press “${UI[lang].order}”<br><br><span class="muted">*Prices are in UZS.</span>`;
   }
 
   renderWelcome();
-  renderMainCats();      // ✅ Кухня / Бар
+  renderMainCats();
   if(!isSearchOpen()) renderProducts();
   updateTotal();
+  updateFulfillmentUI();
+  updatePaymentUI();
   setTimeout(syncStickyHeight, 50);
 }
 
@@ -1299,19 +1561,80 @@ function callLegalPhone(e){
   try{Telegram.WebApp.openLink(url);}catch(_){window.location.href=url;}
 }
 
-/* ✅ менеджер: открывает чат с админом (ID 6013591658) */
+/* ✅ менеджер: восстановлено и усилено */
 function openManager(e){
   try{e.preventDefault();e.stopPropagation();}catch(_){}
   closeTopMenu();
+
+  // 1) если есть username — открываем через https://t.me/username
+  if(MANAGER_USERNAME && MANAGER_USERNAME.trim()){
+    const url = `https://t.me/${MANAGER_USERNAME.replace('@','')}`;
+    try{ Telegram.WebApp.openLink(url); return; }catch(_){ window.open(url,'_blank'); return; }
+  }
+
+  // 2) пробуем tg://user?id=
   const tgUrl = `tg://user?id=${MANAGER_ID}`;
   try{ Telegram.WebApp.openTelegramLink?.(tgUrl); return; }catch(_){}
-  try{ Telegram.WebApp.openLink(tgUrl); }catch(_){ window.location.href = tgUrl; }
+  try{ Telegram.WebApp.openLink(tgUrl); return; }catch(_){}
+
+  // 3) fallback: tg://resolve?domain=
+  const alt = `tg://resolve?domain=${(tg_username||'')}`;
+  try{ Telegram.WebApp.openTelegramLink?.(alt); }catch(_){ window.location.href = tgUrl; }
+}
+
+/* ✅ официант */
+function fillTables(){
+  const sel = document.getElementById('tableSelect');
+  if(!sel) return;
+  const keep = sel.value;
+  sel.innerHTML = `<option value="">—</option>`;
+  for(let i=1;i<=30;i++){
+    const o=document.createElement('option');
+    o.value=String(i);
+    o.textContent=`${i}`;
+    sel.appendChild(o);
+  }
+  if(keep) sel.value=keep;
+}
+function openWaiter(e){
+  try{e.preventDefault();e.stopPropagation();}catch(_){}
+  closeTopMenu();
+  fillTables();
+  waiterBackdrop.classList.add('show');
+  waiterSheet.classList.add('show');
+}
+function closeWaiter(){
+  waiterBackdrop.classList.remove('show');
+  waiterSheet.classList.remove('show');
+}
+function sendWaiterCall(){
+  const inRest = !!document.getElementById('inRestToggle')?.checked;
+  const table  = (document.getElementById('tableSelect')?.value || '').trim();
+  if(!table){
+    alert(UI[lang].reqTable);
+    return;
+  }
+
+  const payload={
+    action:'waiter',
+    brand:'Art Cafe',
+    tg:{id:tg_id,username:tg_username,first_name:tg_first_name},
+    in_restaurant: inRest,
+    table,
+    lang
+  };
+
+  showToast("✅");
+  setTimeout(()=>{
+    try{ Telegram.WebApp.sendData(JSON.stringify(payload)); }catch(_){}
+    closeWaiter();
+  }, 350);
 }
 
 /* категории helpers */
 function catLabel(key){ return CATEGORY_LABELS?.[key]?.[lang] || key; }
 
-/* ✅ рендер: 2 главные категории Кухня / Бар */
+/* ✅ рендер: Кухня / Бар */
 function renderMainCats(){
   cats.innerHTML='';
   const kActive = (mainGroup==='kitchen') ? 'active' : '';
@@ -1322,7 +1645,7 @@ function renderMainCats(){
 function onMainCatClick(g){
   mainGroup = g;
   renderMainCats();
-  openSubcats(g);   // ✅ при нажатии снизу всплывает окно с подкатегориями
+  openSubcats(g);
 }
 
 /* ✅ окно подкатегорий */
@@ -1371,7 +1694,7 @@ function onSearchKey(e){ if(e.key==='Enter') closeSearch(); }
 function matchesQuery(it,q){
   if(!q) return true;
   const all=[
-    it.n?.ru,it.n?.uz,it.n?.en,
+    it.n?.ru,it.n?.uz,it.n?.en,it.n?.tr,
     String(it.meta||''),
     String(it.id||''),
     String(it.p||'')
@@ -1427,8 +1750,6 @@ function cardHTML(it){
 
 function renderProducts(){
   products.innerHTML='';
-
-  /* ✅ показываем товары только выбранной подкатегории */
   const list = MENU[category] || [];
   list.forEach(it=>{
     cart[it.id]=cart[it.id]||0;
@@ -1436,7 +1757,7 @@ function renderProducts(){
   });
 }
 
-/* ✅ image modal */
+/* image modal */
 function openImage(e,id){
   try{e.preventDefault();e.stopPropagation();}catch(_){}
   const it=ITEM_INDEX[id];
@@ -1467,26 +1788,36 @@ function closeImgModal(e){
   imgModalImg.src='';
 }
 
-/* ✅ splash: показать фото при открытии (1 раз в день) */
+/* ✅ splash: почему перестало? — из-за localStorage “уже показано”.
+   Исправление: добавили версию и показываем 1 раз в день на версию + кнопку сброса ключа при смене версии. */
+const SPLASH_VERSION = 2;
 function todayKey(){
   const d=new Date();
   const dd=String(d.getDate()).padStart(2,'0');
   const mm=String(d.getMonth()+1).padStart(2,'0');
   return `${d.getFullYear()}${mm}${dd}`;
 }
+function splashKey(){
+  return `artcafe_splash_seen_${SPLASH_VERSION}_${todayKey()}`;
+}
 function showSplash(){
-  const key = `artcafe_splash_seen_${todayKey()}`;
+  const key = splashKey();
   if(localStorage.getItem(key)==='1') return;
 
+  const splashEl = document.getElementById('splash');
   const imgEl = document.getElementById('splashImg');
-  imgEl.src = OPEN_SCREEN_IMG;
-  imgEl.onerror = function(){
-    this.onerror=null;
-    document.getElementById('splash')?.classList.remove('show');
-  };
 
-  document.getElementById('splash')?.classList.add('show');
-  localStorage.setItem(key,'1');
+  // ✅ показываем только после успешной загрузки
+  const img = new Image();
+  img.onload = () => {
+    imgEl.src = OPEN_SCREEN_IMG;
+    splashEl.classList.add('show');
+    localStorage.setItem(key,'1');
+  };
+  img.onerror = () => {
+    // если файла нет — не показываем
+  };
+  img.src = OPEN_SCREEN_IMG + `?v=${SPLASH_VERSION}`; // ✅ чтобы не кешировалось
 }
 function closeSplash(e){
   try{e.preventDefault();e.stopPropagation();}catch(_){}
@@ -1495,7 +1826,16 @@ function closeSplash(e){
   if(imgEl) imgEl.src='';
 }
 
-/* cart */
+/* toast */
+let toastTimer=null;
+function showToast(t){
+  popup.classList.add('show');
+  popupText.innerText = t || "✅";
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>popup.classList.remove('show'), 1200);
+}
+
+/* cart counters */
 function syncCounters(id){
   const c=document.getElementById('c_'+id);
   if(c) c.innerText=cart[id]||0;
@@ -1517,6 +1857,70 @@ function chg(id,delta){
   updateTotal();
 }
 
+/* ✅ delivery/pickup UI + validation */
+function setFulfillment(type, btn){
+  fulfillment = type;
+  document.getElementById('btnDelivery').classList.remove('active');
+  document.getElementById('btnPickup').classList.remove('active');
+  btn.classList.add('active');
+  updateFulfillmentUI();
+}
+function updateFulfillmentUI(){
+  // подсветка
+  if(fulfillment==='delivery'){
+    btnDelivery.classList.add('active');
+    btnPickup.classList.remove('active');
+    addrInput.style.display = 'block';
+  }else{
+    btnPickup.classList.add('active');
+    btnDelivery.classList.remove('active');
+    addrInput.style.display = 'none';
+    addrInput.value = '';
+  }
+}
+
+/* ✅ payment UI + Click sheet */
+function setPayment(type, btn){
+  paymentMethod = type;
+  ['btnCash','btnClick','btnOnline'].forEach(id=>document.getElementById(id).classList.remove('active'));
+  btn.classList.add('active');
+  updatePaymentUI();
+
+  if(paymentMethod==='click'){
+    openPaySheet();
+  }
+}
+function updatePaymentUI(){
+  if(paymentMethod==='cash'){
+    btnCash.classList.add('active');
+    onlineDetails.style.display='none';
+  }else if(paymentMethod==='click'){
+    btnClick.classList.add('active');
+    onlineDetails.style.display='none';
+  }else{
+    btnOnline.classList.add('active');
+    onlineDetails.style.display='block';
+    onlineDetails.innerText = UI[lang].onlineDetails;
+  }
+}
+
+/* click pay sheet */
+function openPaySheet(){
+  // ставим QR
+  const qr = document.getElementById('clickQrImg');
+  qr.src = CLICK_QR_IMG + `?v=${Date.now()}`;
+  qr.onerror = function(){ this.onerror=null; this.src='images/logo.png'; };
+  clickPayDetails.innerText = UI[lang].onlineDetails; // показываем реквизиты тоже
+
+  payBackdrop.classList.add('show');
+  paySheet.classList.add('show');
+}
+function closePaySheet(){
+  payBackdrop.classList.remove('show');
+  paySheet.classList.remove('show');
+  try{ document.getElementById('clickQrImg').src=''; }catch(_){}
+}
+
 /* order */
 function genOrderId(){
   const d=new Date();
@@ -1527,12 +1931,9 @@ function genOrderId(){
   localStorage.setItem(key,String(n));
   return `ARTCAFE-${dd}${mm}-${String(n).padStart(3,'0')}`;
 }
-let toastTimer=null;
-function showToast(t){
-  popup.classList.add('show');
-  popupText.innerText = t || "✅";
-  clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>popup.classList.remove('show'), 1200);
+
+function normalizePhone(p){
+  return String(p||'').replace(/[^\d+]/g,'').trim();
 }
 
 function sendOrder(){
@@ -1556,6 +1957,22 @@ function sendOrder(){
     return;
   }
 
+  // ✅ проверки
+  const phone = normalizePhone(phoneInput.value);
+  if(!phone){
+    alert(UI[lang].reqPhone);
+    phoneInput.focus();
+    return;
+  }
+  if(fulfillment==='delivery'){
+    const addr = (addrInput.value||'').trim();
+    if(!addr){
+      alert(UI[lang].reqAddr);
+      addrInput.focus();
+      return;
+    }
+  }
+
   showToast("✅");
   const totalSum=calcItemsSum();
 
@@ -1563,6 +1980,16 @@ function sendOrder(){
     action:'order',
     brand:'Art Cafe',
     tg:{id:tg_id,username:tg_username,first_name:tg_first_name},
+
+    fulfillment, // delivery | pickup
+    phone,
+    address: (fulfillment==='delivery') ? (addrInput.value||'').trim() : null,
+
+    payment_method: paymentMethod, // cash | click | online
+    payment_data: (paymentMethod==='online' || paymentMethod==='click')
+      ? {receiver: ONLINE_PAY.receiver, card: ONLINE_PAY.card, click_qr: (paymentMethod==='click') ? 'images/CLICK_QR.jpg' : null}
+      : null,
+
     items,
     total: formatSum(totalSum),
     total_num: totalSum,
@@ -1578,7 +2005,7 @@ function sendOrder(){
     }catch(_){
       try{ Telegram.WebApp.close(); }catch(__){}
     }
-  },700);
+  },650);
 }
 
 function openCart(){
@@ -1595,13 +2022,31 @@ function setLang(l,btn){
   applyUI();
 }
 
-/* init theme */
+/* theme */
 try{
   Telegram.WebApp.setHeaderColor?.('#395B5F');
   Telegram.WebApp.setBackgroundColor?.('#A7886B');
 }catch(_){}
 
 /* init */
+function initDefaults(){
+  // ✅ дефолт: доставка + наличные
+  fulfillment = 'delivery';
+  paymentMethod = 'cash';
+
+  // активы
+  document.getElementById('btnDelivery')?.classList.add('active');
+  document.getElementById('btnCash')?.classList.add('active');
+
+  // подставим телефон, если есть
+  try{
+    if(tgUser?.phone_number && !phoneInput.value) phoneInput.value = tgUser.phone_number;
+  }catch(_){}
+
+  // таблицы
+  fillTables();
+}
+
 renderMainCats();
 renderProducts();
 
@@ -1609,6 +2054,7 @@ lang='ru';
 document.querySelectorAll('.langs .btn').forEach(b=>b.classList.remove('active'));
 document.getElementById('langRU')?.classList.add('active');
 
+initDefaults();
 applyUI();
 updateTotal();
 setTimeout(syncStickyHeight, 50);
@@ -1617,9 +2063,7 @@ closeSearch();
 /* ✅ показать фото при открытии приложения */
 setTimeout(showSplash, 350);
 
-/* ✅ при первом запуске можно сразу открыть подкатегории кухни (если хочешь)
-   раскомментируй строку ниже */
-// setTimeout(()=>openSubcats(mainGroup), 500);
+/* ✅ автосброс: если вы хотите принудительно вернуть показ — увеличьте SPLASH_VERSION */
 </script>
 </body>
 </html>
