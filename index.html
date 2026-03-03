@@ -179,11 +179,11 @@ body{
 }
 .btn:active{transform:scale(.98);}
 
-/* active */
+/* ✅ ACTIVE = белая кнопка (язык и все остальные кнопки выбора) */
 .btn.active{
-  background: linear-gradient(180deg, var(--tile), var(--tile-2));
-  color:#ffffff;
-  border:1px solid rgba(255,255,255,.30);
+  background:#ffffff;
+  color:#1d1d1d;
+  border:1px solid rgba(0,0,0,.10);
   box-shadow: 0 14px 26px rgba(0,0,0,.22);
 }
 
@@ -293,6 +293,17 @@ textarea.input{height:90px;}
   font-weight:900;
   margin-top:12px;
   text-align:center;
+}
+
+/* ✅ оплата в один ряд --- */
+.row-buttons.payment-row{
+  flex-wrap:nowrap;
+}
+.row-buttons.payment-row .btn{
+  min-width:0;
+  flex:1 1 0;
+  padding-left:10px;
+  padding-right:10px;
 }
 
 /* popup */
@@ -455,9 +466,12 @@ textarea.input{height:90px;}
   transition:.15s;
 }
 .subcat-square:active{transform:scale(.98);}
+
+/* ✅ ACTIVE для подкатегорий тоже белый */
 .subcat-square.active{
-  background: linear-gradient(180deg, var(--tile), var(--tile-2));
-  border:1px solid rgba(255,255,255,.30);
+  background:#ffffff;
+  color:#1d1d1d;
+  border:1px solid rgba(0,0,0,.10);
   box-shadow: 0 14px 26px rgba(0,0,0,.22);
 }
 
@@ -862,7 +876,9 @@ textarea.input{height:90px;}
 
   <!-- ✅ Оплата -->
   <div class="row-title" id="payMethodTitle">Способ оплаты</div>
-  <div class="row-buttons">
+
+  <!-- ✅ payment-row: всегда в одну строку -->
+  <div class="row-buttons payment-row">
     <button class="btn" id="btnCash" onclick="setPayment('cash', this)">💵 Наличные</button>
     <button class="btn" id="btnClick" onclick="setPayment('click', this)">🟢 Click</button>
     <button class="btn" id="btnOnline" onclick="setPayment('online', this)">💳 Online</button>
@@ -1788,8 +1804,7 @@ function closeImgModal(e){
   imgModalImg.src='';
 }
 
-/* ✅ splash: почему перестало? — из-за localStorage “уже показано”.
-   Исправление: добавили версию и показываем 1 раз в день на версию + кнопку сброса ключа при смене версии. */
+/* ✅ splash: показываем 1 раз в день на версию */
 const SPLASH_VERSION = 2;
 function todayKey(){
   const d=new Date();
@@ -1807,17 +1822,14 @@ function showSplash(){
   const splashEl = document.getElementById('splash');
   const imgEl = document.getElementById('splashImg');
 
-  // ✅ показываем только после успешной загрузки
   const img = new Image();
   img.onload = () => {
     imgEl.src = OPEN_SCREEN_IMG;
     splashEl.classList.add('show');
     localStorage.setItem(key,'1');
   };
-  img.onerror = () => {
-    // если файла нет — не показываем
-  };
-  img.src = OPEN_SCREEN_IMG + `?v=${SPLASH_VERSION}`; // ✅ чтобы не кешировалось
+  img.onerror = () => {};
+  img.src = OPEN_SCREEN_IMG + `?v=${SPLASH_VERSION}`;
 }
 function closeSplash(e){
   try{e.preventDefault();e.stopPropagation();}catch(_){}
@@ -1866,7 +1878,6 @@ function setFulfillment(type, btn){
   updateFulfillmentUI();
 }
 function updateFulfillmentUI(){
-  // подсветка
   if(fulfillment==='delivery'){
     btnDelivery.classList.add('active');
     btnPickup.classList.remove('active');
@@ -1906,11 +1917,10 @@ function updatePaymentUI(){
 
 /* click pay sheet */
 function openPaySheet(){
-  // ставим QR
   const qr = document.getElementById('clickQrImg');
   qr.src = CLICK_QR_IMG + `?v=${Date.now()}`;
   qr.onerror = function(){ this.onerror=null; this.src='images/logo.png'; };
-  clickPayDetails.innerText = UI[lang].onlineDetails; // показываем реквизиты тоже
+  clickPayDetails.innerText = UI[lang].onlineDetails;
 
   payBackdrop.classList.add('show');
   paySheet.classList.add('show');
@@ -1957,7 +1967,6 @@ function sendOrder(){
     return;
   }
 
-  // ✅ проверки
   const phone = normalizePhone(phoneInput.value);
   if(!phone){
     alert(UI[lang].reqPhone);
@@ -1981,11 +1990,11 @@ function sendOrder(){
     brand:'Art Cafe',
     tg:{id:tg_id,username:tg_username,first_name:tg_first_name},
 
-    fulfillment, // delivery | pickup
+    fulfillment,
     phone,
     address: (fulfillment==='delivery') ? (addrInput.value||'').trim() : null,
 
-    payment_method: paymentMethod, // cash | click | online
+    payment_method: paymentMethod,
     payment_data: (paymentMethod==='online' || paymentMethod==='click')
       ? {receiver: ONLINE_PAY.receiver, card: ONLINE_PAY.card, click_qr: (paymentMethod==='click') ? 'images/CLICK_QR.jpg' : null}
       : null,
@@ -2030,20 +2039,12 @@ try{
 
 /* init */
 function initDefaults(){
-  // ✅ дефолт: доставка + наличные
   fulfillment = 'delivery';
   paymentMethod = 'cash';
 
-  // активы
   document.getElementById('btnDelivery')?.classList.add('active');
   document.getElementById('btnCash')?.classList.add('active');
 
-  // подставим телефон, если есть
-  try{
-    if(tgUser?.phone_number && !phoneInput.value) phoneInput.value = tgUser.phone_number;
-  }catch(_){}
-
-  // таблицы
   fillTables();
 }
 
@@ -2062,8 +2063,6 @@ closeSearch();
 
 /* ✅ показать фото при открытии приложения */
 setTimeout(showSplash, 350);
-
-/* ✅ автосброс: если вы хотите принудительно вернуть показ — увеличьте SPLASH_VERSION */
 </script>
 </body>
 </html>
