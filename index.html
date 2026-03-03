@@ -411,6 +411,34 @@ textarea.input{height:90px;}
   display:block;
 }
 
+/* ✅ подкатегории в виде квадратиков (в нижнем окне) */
+.subcats-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  padding:8px 2px 2px;
+}
+.subcat-square{
+  width:100%;
+  border:none;
+  border-radius:18px;
+  padding:14px 12px;
+  font-weight:900;
+  text-align:center;
+  cursor:pointer;
+  background: linear-gradient(180deg, var(--tile-3), var(--tile-2));
+  color:#fff;
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow: 0 10px 22px rgba(0,0,0,.18);
+  transition:.15s;
+}
+.subcat-square:active{transform:scale(.98);}
+.subcat-square.active{
+  background: linear-gradient(180deg, var(--tile), var(--tile-2));
+  border:1px solid rgba(255,255,255,.30);
+  box-shadow: 0 14px 26px rgba(0,0,0,.22);
+}
+
 /* sticky */
 .sticky-checkout{
   position:fixed;left:0;right:0;bottom:0;
@@ -685,6 +713,22 @@ textarea.input{height:90px;}
   </div>
 </div>
 
+<!-- ✅ bottom sheet: подкатегории (всплывает снизу) -->
+<div class="sheet-backdrop" id="subBackdrop" onclick="closeSubcats()"></div>
+<div class="sheet" id="subSheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head">
+    <b id="subTitle">Категории</b>
+    <button class="sheet-close" onclick="closeSubcats()">×</button>
+  </div>
+
+  <div style="padding:2px 4px 6px; font-weight:900; opacity:.85;" id="subHint">
+    Выберите подкатегорию
+  </div>
+
+  <div class="subcats-grid" id="subGrid"></div>
+</div>
+
 <!-- search -->
 <div class="search-title" id="searchTitle">Результаты поиска</div>
 <div class="search-wrap" id="searchWrap">
@@ -699,7 +743,9 @@ textarea.input{height:90px;}
   <button class="btn" id="langEN" onclick="setLang('en',this)"><span class="lang-flag">🇬🇧</span>EN</button>
 </div>
 
+<!-- ✅ теперь тут 2 категории: Кухня / Бар -->
 <div class="categories" id="cats"></div>
+
 <div class="products" id="products"></div>
 
 <div class="cart" id="cartBox">
@@ -832,7 +878,13 @@ const UI = {
     managerTitle:'Связаться с менеджером',
     managerSub:'Telegram',
     legalTitle:'Юр лицам',
-    legalSub:`${LEGAL_EMAIL} • ${LEGAL_PHONE_HUMAN}`
+    legalSub:`${LEGAL_EMAIL} • ${LEGAL_PHONE_HUMAN}`,
+
+    /* ✅ новые */
+    kitchen:'Кухня',
+    bar:'Бар',
+    subcatsTitle:'Категории',
+    subcatsHint:'Выберите подкатегорию'
   },
   uz:{
     brandSub:'SAMARKAND',
@@ -859,7 +911,13 @@ const UI = {
     managerTitle:'Menejer bilan bog‘lanish',
     managerSub:'Telegram',
     legalTitle:'Yuridik shaxslar',
-    legalSub:`${LEGAL_EMAIL} • ${LEGAL_PHONE_HUMAN}`
+    legalSub:`${LEGAL_EMAIL} • ${LEGAL_PHONE_HUMAN}`,
+
+    /* ✅ новые */
+    kitchen:'Oshxona',
+    bar:'Bar',
+    subcatsTitle:'Kategoriyalar',
+    subcatsHint:'Pastki kategoriyani tanlang'
   },
   en:{
     brandSub:'SAMARKAND',
@@ -886,7 +944,13 @@ const UI = {
     managerTitle:'Contact manager',
     managerSub:'Telegram',
     legalTitle:'For companies',
-    legalSub:`${LEGAL_EMAIL} • ${LEGAL_PHONE_HUMAN}`
+    legalSub:`${LEGAL_EMAIL} • ${LEGAL_PHONE_HUMAN}`,
+
+    /* ✅ новые */
+    kitchen:'Kitchen',
+    bar:'Bar',
+    subcatsTitle:'Categories',
+    subcatsHint:'Choose a subcategory'
   }
 };
 
@@ -895,25 +959,6 @@ let lang='ru';
 /* helpers */
 function escapeHtml(s){return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
 function formatSum(x){const n = Number(x) || 0; return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ');}
-
-/* item builder */
-function mkFood(id, name, meta, price, catKey){
-  const catName = CATEGORY_LABELS?.[catKey]?.[lang] || catKey;
-  const metaText = meta ? String(meta) : '';
-  return {
-    id,
-    p: Number(price)||0,
-    meta: metaText,
-    img: `images/${id}.jpg`, // ✅ фото: jpg
-    /* ✅ названия у всех блюд (показываются в карточке) */
-    n: {ru:name, uz:name, en:name},
-    desc: {
-      ru: `Категория: ${catName}\n${UI.ru.metaPrefix}: ${metaText || '—'}\n\nДобавьте в корзину и нажмите “${UI[lang].order}”.`,
-      uz: `Kategoriya: ${catName}\n${UI.uz.metaPrefix}: ${metaText || '—'}\n\nSavatga qo‘shing va “${UI[lang].order}” tugmasini bosing.`,
-      en: `Category: ${catName}\n${UI.en.metaPrefix}: ${metaText || '—'}\n\nAdd to cart and press “${UI[lang].order}”.`
-    }
-  };
-}
 
 /* Категории блюд */
 const CATEGORY_LABELS = {
@@ -934,14 +979,33 @@ const CATEGORY_LABELS = {
   mineral:  {ru:'Минеральная вода', uz:'Mineral suv', en:'Mineral water'}
 };
 
-const MAIN_CATS = [
-  {key:'salads'},{key:'snacks'},{key:'soups'},{key:'hot'},{key:'bread'},
-  {key:'sauces'},{key:'sides'},{key:'desserts'},{key:'coffee'},{key:'tea'},
-  {key:'fresh'},{key:'lemonades'},{key:'milkshake'},{key:'drinks'},{key:'mineral'}
-];
+/* ✅ 2 главные категории: Кухня / Бар → распределение подкатегорий */
+const GROUPS = {
+  kitchen: ['salads','snacks','soups','hot','bread','sauces','sides','desserts'],
+  bar:     ['coffee','tea','fresh','lemonades','milkshake','drinks','mineral']
+};
 
-let category = 'salads';
+let mainGroup = 'kitchen';      // ✅ активная: кухня/бар
+let category  = GROUPS.kitchen[0]; // ✅ активная подкатегория
 let cart = {};
+
+/* item builder */
+function mkFood(id, name, meta, price, catKey){
+  const catName = CATEGORY_LABELS?.[catKey]?.[lang] || catKey;
+  const metaText = meta ? String(meta) : '';
+  return {
+    id,
+    p: Number(price)||0,
+    meta: metaText,
+    img: `images/${id}.jpg`, // ✅ фото: jpg
+    n: {ru:name, uz:name, en:name},
+    desc: {
+      ru: `Категория: ${catName}\n${UI.ru.metaPrefix}: ${metaText || '—'}\n\nДобавьте в корзину и нажмите “${UI[lang].order}”.`,
+      uz: `Kategoriya: ${catName}\n${UI.uz.metaPrefix}: ${metaText || '—'}\n\nSavatga qo‘shing va “${UI[lang].order}” tugmasini bosing.`,
+      en: `Category: ${catName}\n${UI.en.metaPrefix}: ${metaText || '—'}\n\nAdd to cart and press “${UI[lang].order}”.`
+    }
+  };
+}
 
 /* MENU (полностью по вашему прайсу) */
 const MENU = {
@@ -1172,17 +1236,20 @@ function applyUI(){
   if(mLegT) mLegT.innerText = UI[lang].legalTitle;
   if(mLegS) mLegS.innerText = UI[lang].legalSub;
 
+  subTitle.innerText = UI[lang].subcatsTitle;
+  subHint.innerText  = UI[lang].subcatsHint;
+
   const d = document.getElementById('aboutDescText');
   if(d){
     d.innerHTML = (lang==='ru')
-      ? `Art Cafe — <b>Samarkand</b>.<br><br><b>Как оформить заказ:</b><br>1) Выберите категорию<br>2) Добавьте позиции в корзину<br>3) Нажмите “${UI[lang].order}”<br><br><span class="muted">*Цены указаны в сумах.</span>`
+      ? `Art Cafe — <b>Samarkand</b>.<br><br><b>Как оформить заказ:</b><br>1) Выберите категорию<br>2) Выберите подкатегорию<br>3) Добавьте позиции в корзину<br>4) Нажмите “${UI[lang].order}”<br><br><span class="muted">*Цены указаны в сумах.</span>`
       : (lang==='uz')
-      ? `Art Cafe — <b>Samarkand</b>.<br><br><b>Buyurtma berish:</b><br>1) Kategoriyani tanlang<br>2) Savatga qo‘shing<br>3) “${UI[lang].order}” tugmasini bosing<br><br><span class="muted">*Narxlar so‘mda.</span>`
-      : `Art Cafe — <b>Samarkand</b>.<br><br><b>How to order:</b><br>1) Choose category<br>2) Add items to cart<br>3) Press “${UI[lang].order}”<br><br><span class="muted">*Prices are in UZS.</span>`;
+      ? `Art Cafe — <b>Samarkand</b>.<br><br><b>Buyurtma berish:</b><br>1) Kategoriyani tanlang<br>2) Pastki kategoriyani tanlang<br>3) Savatga qo‘shing<br>4) “${UI[lang].order}” tugmasini bosing<br><br><span class="muted">*Narxlar so‘mda.</span>`
+      : `Art Cafe — <b>Samarkand</b>.<br><br><b>How to order:</b><br>1) Choose category<br>2) Choose subcategory<br>3) Add items to cart<br>4) Press “${UI[lang].order}”<br><br><span class="muted">*Prices are in UZS.</span>`;
   }
 
   renderWelcome();
-  renderCats();
+  renderMainCats();      // ✅ Кухня / Бар
   if(!isSearchOpen()) renderProducts();
   updateTotal();
   setTimeout(syncStickyHeight, 50);
@@ -1241,20 +1308,44 @@ function openManager(e){
   try{ Telegram.WebApp.openLink(tgUrl); }catch(_){ window.location.href = tgUrl; }
 }
 
-/* categories */
+/* категории helpers */
 function catLabel(key){ return CATEGORY_LABELS?.[key]?.[lang] || key; }
 
-function renderCats(){
+/* ✅ рендер: 2 главные категории Кухня / Бар */
+function renderMainCats(){
   cats.innerHTML='';
-  MAIN_CATS.forEach(c=>{
-    const title = catLabel(c.key);
-    const isActive = (category===c.key) ? 'active' : '';
-    cats.innerHTML += `<button class="btn cat-btn ${isActive}" onclick="onCategoryClick('${c.key}')">${escapeHtml(title)}</button>`;
-  });
+  const kActive = (mainGroup==='kitchen') ? 'active' : '';
+  const bActive = (mainGroup==='bar') ? 'active' : '';
+  cats.innerHTML += `<button class="btn cat-btn ${kActive}" onclick="onMainCatClick('kitchen')">${escapeHtml(UI[lang].kitchen)}</button>`;
+  cats.innerHTML += `<button class="btn cat-btn ${bActive}" onclick="onMainCatClick('bar')">${escapeHtml(UI[lang].bar)}</button>`;
 }
-function onCategoryClick(k){
-  category=k;
-  renderCats();
+function onMainCatClick(g){
+  mainGroup = g;
+  renderMainCats();
+  openSubcats(g);   // ✅ при нажатии снизу всплывает окно с подкатегориями
+}
+
+/* ✅ окно подкатегорий */
+function openSubcats(g){
+  closeSearch();
+  const list = (GROUPS[g]||[]).filter(k => MENU[k] && MENU[k].length>0);
+
+  subGrid.innerHTML = '';
+  list.forEach(k=>{
+    const isA = (category===k) ? 'active' : '';
+    subGrid.innerHTML += `<button class="subcat-square ${isA}" onclick="selectSubcat('${k}')">${escapeHtml(catLabel(k))}</button>`;
+  });
+
+  subBackdrop.classList.add('show');
+  subSheet.classList.add('show');
+}
+function closeSubcats(){
+  subBackdrop.classList.remove('show');
+  subSheet.classList.remove('show');
+}
+function selectSubcat(k){
+  category = k;
+  closeSubcats();
   if(!isSearchOpen()) renderProducts();
 }
 
@@ -1336,6 +1427,8 @@ function cardHTML(it){
 
 function renderProducts(){
   products.innerHTML='';
+
+  /* ✅ показываем товары только выбранной подкатегории */
   const list = MENU[category] || [];
   list.forEach(it=>{
     cart[it.id]=cart[it.id]||0;
@@ -1343,7 +1436,7 @@ function renderProducts(){
   });
 }
 
-/* ✅ image modal (фото открывается, информация внизу фото) */
+/* ✅ image modal */
 function openImage(e,id){
   try{e.preventDefault();e.stopPropagation();}catch(_){}
   const it=ITEM_INDEX[id];
@@ -1386,10 +1479,9 @@ function showSplash(){
   if(localStorage.getItem(key)==='1') return;
 
   const imgEl = document.getElementById('splashImg');
-  imgEl.src = OPEN_SCREEN_IMG; // ✅ JPG
+  imgEl.src = OPEN_SCREEN_IMG;
   imgEl.onerror = function(){
     this.onerror=null;
-    // если фото не добавили — просто не показываем
     document.getElementById('splash')?.classList.remove('show');
   };
 
@@ -1510,7 +1602,7 @@ try{
 }catch(_){}
 
 /* init */
-renderCats();
+renderMainCats();
 renderProducts();
 
 lang='ru';
@@ -1524,6 +1616,10 @@ closeSearch();
 
 /* ✅ показать фото при открытии приложения */
 setTimeout(showSplash, 350);
+
+/* ✅ при первом запуске можно сразу открыть подкатегории кухни (если хочешь)
+   раскомментируй строку ниже */
+// setTimeout(()=>openSubcats(mainGroup), 500);
 </script>
 </body>
 </html>
